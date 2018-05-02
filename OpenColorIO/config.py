@@ -55,7 +55,8 @@
 	"manifest" : [
 
 		"include/OpenColorIO",
-		"lib/libOpenColorIO*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}OpenColorIO*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}OpenColorIO*.lib",
 		"openColorIO",
 		"python/PyOpenColorIO*",
 
@@ -86,4 +87,51 @@
 
 	},
 
+	"platform:windows" : {
+
+		"variables" : {
+
+			"cmakeBuildType" : "Release",
+			"cmakeGenerator": "\"Visual Studio 15 2017 Win64\"",
+
+		},
+
+		"environment" : {
+
+			"PATH" : "%PATH%;%ROOT_DIR%\\winbuild\\patch\\bin",
+
+		},
+
+		"commands" : [
+
+			#OCIO is particular about needing all slashes to be forward slashes
+			"mkdir build",
+			"cd build && cmake"
+				" -Wno-dev"
+				" -G {cmakeGenerator}"
+				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
+				" -D CMAKE_CXX_STANDARD={c++Standard}"
+				" -D CMAKE_INSTALL_PREFIX={buildDir}"
+				" -D CMAKE_PREFIX_PATH={buildDir}"
+				" -D Python_ROOT_DIR={buildDir}"
+				" -D Python_FIND_STRATEGY=LOCATION"
+				" -D BUILD_SHARED_LIBS=ON"
+				" -D OCIO_BUILD_APPS=OFF"
+				" -D OCIO_BUILD_NUKE=OFF"
+				" -D OCIO_BUILD_TESTS=OFF"
+				" -D OCIO_BUILD_GPU_TESTS=OFF"
+				# Will need removing when we update to OpenEXR 3
+				" -D OCIO_USE_OPENEXR_HALF=ON"
+				" -D OCIO_PYTHON_VERSION={pythonVersion}"
+				" ..",
+			"cd build && cmake --build . --config {cmakeBuildType} --target install",
+			# "if not exist \"{buildDir}\\python\" mkdir {buildDir}\\python",
+			# "move {buildDir}\\PyOpenColorIO.dll {buildDir}\\python\\PyOpenColorIO.pyd",
+			"if not exist \"{buildDir}\\openColorIO\" mkdir {buildDir}\\openColorIO",
+			"if not exist \"{buildDir}\\openColorIO\\luts\" mkdir {buildDir}\\openColorIO\\luts",
+			"copy ..\\OpenColorIO-Configs-1.0_r2\\nuke-default\\config.ocio {buildDir}\\openColorIO",
+			"xcopy /s /e /h /y /i ..\\OpenColorIO-Configs-1.0_r2\\nuke-default\\luts {buildDir}\\openColorIO\\luts",
+		],
+
+	},
 }
