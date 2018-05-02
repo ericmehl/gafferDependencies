@@ -1,0 +1,31 @@
+From 9cc9e277254023c0ca08e1a9e379fd89475ca9c2 Mon Sep 17 00:00:00 2001
+From: Steve Dower <steve.dower@python.org>
+Date: Mon, 16 Nov 2020 23:22:42 +0000
+Subject: [PATCH] bpo-42120: Remove macro defining copysign to _copysign on
+ Windows (GH-23326)
+
+---
+ .../NEWS.d/next/Windows/2020-11-16-22-41-02.bpo-42120.9scgko.rst | 1 +
+ PC/pyconfig.h                                                    | 1 -
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+ create mode 100644 Misc/NEWS.d/next/Windows/2020-11-16-22-41-02.bpo-42120.9scgko.rst
+
+diff --git a/Misc/NEWS.d/next/Windows/2020-11-16-22-41-02.bpo-42120.9scgko.rst b/Misc/NEWS.d/next/Windows/2020-11-16-22-41-02.bpo-42120.9scgko.rst
+new file mode 100644
+index 0000000000000..c574956d11d93
+--- /dev/null
++++ b/Misc/NEWS.d/next/Windows/2020-11-16-22-41-02.bpo-42120.9scgko.rst
+@@ -0,0 +1 @@
++Remove macro definition of ``copysign`` (to ``_copysign``) in headers.
+diff --git a/PC/pyconfig.h b/PC/pyconfig.h
+index b29f63c35bccb..592b487adcb45 100644
+--- a/PC/pyconfig.h
++++ b/PC/pyconfig.h
+@@ -193,7 +193,6 @@ typedef int pid_t;
+ #define Py_IS_NAN _isnan
+ #define Py_IS_INFINITY(X) (!_finite(X) && !_isnan(X))
+ #define Py_IS_FINITE(X) _finite(X)
+-#define copysign _copysign
+ 
+ /* define some ANSI types that are not defined in earlier Win headers */
+ #if _MSC_VER >= 1200
