@@ -15,12 +15,33 @@
 		"mkdir build",
 		"cd build &&"
 			" cmake"
-			" -G $CMAKE_GENERATOR"
-			" -D CMAKE_INSTALL_PREFIX=$BUILD_DIR"
-			" -D CMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE"
+			" -G {cmakeGenerator}"
+			" -D CMAKE_INSTALL_PREFIX={buildDir}"
+			" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
 			" -D LLVM_ENABLE_RTTI=ON"
 			" ..",
-		"cd build && cmake --build . --config $CMAKE_BUILD_TYPE --target install -- -j $NUM_PROCESSORS"
+		"cd build && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}"
 	],
+
+	"platform:windows" : {
+
+		"commands" : [
+
+			"move ..\\cfe* tools\\clang",
+			"mkdir build",
+			"cd build &&"
+				" cmake"
+				" -G {cmakeGenerator}"
+				" -D CMAKE_INSTALL_PREFIX={buildDir}"
+				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
+				" -D BUILD_SHARED_LIBS=OFF"
+				" -D LLVM_REQUIRES_RTTI=ON"
+				" -D LLVM_TARGETS_TO_BUILD=\"X86\""
+				" ..",
+			"cd build && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}"
+
+		],
+
+	}
 
 }
