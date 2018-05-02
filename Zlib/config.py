@@ -6,20 +6,18 @@
 
 	],
 
-	"license" : "LICENSE",
-
 	"commands" : [
 
 		"mkdir gafferBuild",
 
-		"cd build &&"
+		"cd gafferBuild &&"
 			" cmake"
-			" -G $CMAKE_GENERATOR"
-			" -D CMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE"
-			" -D CMAKE_INSTALL_PREFIX=$BUILD_DIR"
+			" -G {cmakeGenerator}"
+			" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
+			" -D CMAKE_INSTALL_PREFIX={buildDir}"
 			" ..",
 
-		"cd gafferBuild && cmake --build . --config $CMAKE_BUILD_TYPE --target install -- -j $NUM_PROCESSORS"
+		"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}"
 
 	],
 
