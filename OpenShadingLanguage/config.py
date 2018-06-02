@@ -21,15 +21,17 @@
 
 		"mkdir gafferBuild",
 		"cd gafferBuild &&"
-			" cmake"
-			" -D CMAKE_INSTALL_PREFIX={buildDir}"
-			" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
-			" -D CMAKE_PREFIX_PATH={buildDir}"
-			" -D STOP_ON_WARNING=0"
-			" -D ENABLERTTI=1"
-			" -D LLVM_STATIC=1"
-			" ..",
-		"cd gafferBuild && make install -j {jobs} VERBOSE=1"
+		 	" cmake"
+		 	" -G $CMAKE_GENERATOR"
+		 	" -D CMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE"
+		 	" -D CMAKE_INSTALL_PREFIX=$BUILD_DIR"
+		 	" -D CMAKE_INSTALL_LIBDIR=$BUILD_DIR/lib"
+		 	" -D CMAKE_PREFIX_PATH=$BUILD_DIR"
+		 	" -D STOP_ON_WARNING=0"
+		 	" -D ENABLERTTI=1"
+		 	" -D LLVM_STATIC=1"
+		 	" ..",
+		"cd gafferBuild && cmake --build . --config $CMAKE_BUILD_TYPE --target install -- -j $NUM_PROCESSORS"
 
 	],
 

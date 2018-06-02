@@ -15,12 +15,12 @@
 		"mkdir build",
 		"cd build &&"
 			" cmake"
-			" -DCMAKE_INSTALL_PREFIX={buildDir}"
-			" -DCMAKE_BUILD_TYPE=Release"
-			" -DLLVM_ENABLE_RTTI=ON"
+			" -G $CMAKE_GENERATOR"
+			" -D CMAKE_INSTALL_PREFIX=$BUILD_DIR"
+			" -D CMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE"
+			" -D LLVM_ENABLE_RTTI=ON"
 			" ..",
-		"cd build && make install -j {jobs}"
-
+		"cd build && cmake --build . --config $CMAKE_BUILD_TYPE --target install -- -j $NUM_PROCESSORS"
 	],
 
 }

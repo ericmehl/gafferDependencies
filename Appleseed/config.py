@@ -38,12 +38,15 @@
 
 		"cd build &&"
 			" cmake"
+			" -G \"Unix Makefiles\""
+			" -D CMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE"
 			" -D WITH_CLI=ON"
 			" -D WITH_STUDIO=OFF"
 			" -D WITH_TOOLS=OFF"
 			" -D WITH_TESTS=OFF"
 			" -D WITH_PYTHON=ON"
 			" -D USE_STATIC_BOOST=OFF"
+			" -D USE_STATIC_EXR=OFF"
 			" -D USE_STATIC_OIIO=OFF"
 			" -D USE_STATIC_OSL=OFF"
 			" -D USE_EXTERNAL_ZLIB=ON"
@@ -59,7 +62,7 @@
 			" -D PYTHON_INCLUDE_DIR={pythonIncludeDir}"
 			" ..",
 
-		"cd build && make install -j {jobs} VERBOSE=1"
+		"cd build && cmake --build . --config $CMAKE_BUILD_TYPE --target install -- -j $NUM_PROCESSORS"
 
 	],
 
