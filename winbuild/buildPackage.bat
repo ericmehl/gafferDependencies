@@ -1,6 +1,8 @@
 SETLOCAL
 
-set VERSION=0.46.0.0
+if not defined VERSION set VERSION=0.47.0.0
+
+echo Building archive for version %VERSION%
 
 cd %BUILD_DIR%
 %ROOT_DIR%\winbuild\7zip\7za.exe a -tzip %ROOT_DIR%\gafferDependencies-%VERSION%-windows-msvc2017.zip @%ROOT_DIR%\winbuild\packageList.txt
