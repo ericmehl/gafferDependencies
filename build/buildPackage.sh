@@ -150,9 +150,6 @@ manifest="
 	include/pyopenvdb.h
 	include/pxr
 
-	renderMan
-	arnold
-
 	appleseedDisplays
 
 	share/usd
@@ -168,6 +165,18 @@ manifest="
 	lib/libcmark*$SHLIBSUFFIX*
 
 "
+
+if [ -d "$BUILD_DIR/renderMan" ]; then
+	$manifest = "$manifest
+	renderMan
+"
+fi
+
+if [ -d "$BUILD_DIR/arnold" ]; then
+	$manifest = "$manifest
+	arnold
+"
+fi
 
 packageName=gafferDependencies-$VERSION-$PLATFORM
 archiveName=$packageName.tar.gz
