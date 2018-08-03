@@ -6,6 +6,7 @@ environment:
   VERSION: 0.48.0.0
 platform: x64
 build_script: 
+  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
   - C:\gafferDependencies\winbuild\buildAll.bat
 artifacts:
-  - path: C:\gafferDependencies\gafferDependencies-$(VERSION)-windows-msvc2017.zip
+  - path: C:\gafferDependencies\gafferDependencies-%VERSION%-windows-msvc2017.zip
