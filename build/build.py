@@ -139,7 +139,7 @@ def __buildProject( project, buildDir, noDownload, workingDirOverride ) :
 
 		patch_command = "%ROOT_DIR%\\winbuild\\patch\\bin\\patch" if config["platform"] == "platform:windows" else "patch"
 		for patch in glob.glob( "../../patches/{}/*.patch".format( config["platform"].lstrip( "platform:" ) ) ) :
-			subprocess.check_call( "{patch_command} -p1 < {patch}".format( patch = patch, patch_command = patch_command ), shell = True )
+			subprocess.check_call( os.path.expandvars( "{patch_command} -p1 < {patch}".format( patch = patch, patch_command = patch_command ) ), shell = True )
 
 	else:
 		os.chdir( workingDir + os.sep + workingDirOverride )
@@ -155,7 +155,7 @@ def __buildProject( project, buildDir, noDownload, workingDirOverride ) :
 	environment["PATH"] = os.path.expandvars( environment["PATH"] )
 	for command in config["commands"] :
 		sys.stderr.write( command + "\n" )
-		subprocess.check_call( command, shell = True, env = environment )
+		subprocess.check_call( os.path.expandvars( command ), shell = True, env = environment )
 
 	for link in config.get( "symbolicLinks", [] ) :
 		if os.path.exists( link[0] ) :
