@@ -3,6 +3,11 @@ image: Visual Studio 2017
 clone_folder: C:\gafferDependencies
 environment:
   BUILD_DIR: C:\gafferDependenciesBuild
+  CMAKE_GENERATOR: "Visual Studio 15 2017 Win64"
+  BUILD_TYPE: RELEASE
+  BOOST_MSVC_VERSION: msvc-14.0
+  ROOT_DIR: C:\gafferDependencies
+
   VERSION: 0.48.0.0
 platform: x64
 build_script: 
