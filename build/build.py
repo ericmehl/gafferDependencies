@@ -9,6 +9,7 @@ import shutil
 import sys
 import re
 import urllib
+import socket
 
 def __projects() :
 
@@ -127,7 +128,12 @@ def __buildProject( project, buildDir, noDownload, workingDirOverride ) :
 				continue
 
 			sys.stderr.write( "Downloading {}".format( download ) + "\n" )
-			urllib.urlretrieve( download, archivePath )
+			try:
+				urllib.urlretrieve( download, archivePath )
+			# try again if it times out
+			except socket.timeout, e:
+				urllib.urlretrieve( download, archivePath )
+
 
 		if os.path.exists( workingDir ) :
 			shutil.rmtree( workingDir )
