@@ -153,6 +153,7 @@ def __buildProject( project, buildDir, noDownload, workingDirOverride ) :
 	environment = os.environ.copy()
 	environment.update( config.get( "environment", {} ) )
 	environment["PATH"] = os.path.expandvars( environment["PATH"] )
+	sys.stdout.write( "PATH = {}\n".format( environment["PATH"] ) )
 	for command in config["commands"] :
 		sys.stderr.write( command + "\n" )
 		subprocess.check_call( os.path.expandvars( command ), shell = True, env = environment )
