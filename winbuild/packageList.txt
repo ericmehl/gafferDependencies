@@ -124,6 +124,7 @@ python/imath.pyd
 python/pyopenvdb.pyd
 python/subprocess32.py
 python/PySide2*
+python/pxr
 
 include/IECore*
 include/boost-1_61
