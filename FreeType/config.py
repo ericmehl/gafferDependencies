@@ -32,7 +32,7 @@
 				" -G {cmakeGenerator}"
 				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
 				" -D CMAKE_INSTALL_PREFIX={buildDir}"
-				" -D FT_WITH_PNG=ON"
+				" -D CMAKE_DISABLE_FIND_PACKAGE_PNG=TRUE"
 				" ..",
 			# FreeType 2.9.1 does not copy the ftconfig.h header
 			# the binary directory, help it out here
