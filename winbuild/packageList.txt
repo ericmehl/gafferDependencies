@@ -100,6 +100,22 @@ lib/pcp*
 lib/usd*
 lib/usd
 
+lib/libar.dll
+lib/libarch.dll
+lib/libgf.dll
+lib/libjs.dll
+lib/libkind.dll
+lib/libndr.dll
+lib/libpcp.dll
+lib/libplug.dll
+lib/libsdf.dll
+lib/libsdr.dll
+lib/libtf.dll
+lib/libtrace.dll
+lib/libusd*.dll
+lib/libvt.dll
+lib/libwork.dll
+
 mkspecs
 
 lib64
