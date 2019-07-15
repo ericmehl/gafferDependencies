@@ -48,7 +48,7 @@
 		"commands" : [
 
 			"bootstrap.bat --prefix={buildDir} --with-python=\"{buildDir}\" --with-python-root=\"{buildDir}\" --without-libraries=log",
-			"b2 -d+2 --prefix={buildDir} --toolset={boostMsvcVersion} architecture=x86 address-model=64 --build-type=complete variant=release link=shared threading=multi -s ZLIB_SOURCE=%ROOT_DIR%\\Zlib\\working\\zlib-1.2.11 -s ZLIB_INCLUDE={buildDir}\\include -s ZLIB_LIBPATH={buildDir}\\lib -s ZLIB_BINARY=zlib install"
+			"b2 -d+2 --no-cmake-config --prefix={buildDir} --toolset={boostMsvcVersion} architecture=x86 address-model=64 --build-type=complete variant=release link=shared threading=multi -s ZLIB_SOURCE=%ROOT_DIR%\\Zlib\\working\\zlib-1.2.11 -s ZLIB_INCLUDE={buildDir}\\include -s ZLIB_LIBPATH={buildDir}\\lib -s ZLIB_BINARY=zlib install"
 
 		],
 
