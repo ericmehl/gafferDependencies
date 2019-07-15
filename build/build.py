@@ -122,7 +122,7 @@ def __buildProject( project, buildDir ) :
 
 	workingDir = project + "/working"
 	if os.path.exists( workingDir ) :
-		shutil.rmtree( workingDir )
+		shutil.rmtree( unicode( workingDir ) )
 	os.makedirs( workingDir )
 	os.chdir( workingDir )
 
