@@ -36,7 +36,7 @@
 			 	" -D CMAKE_PREFIX_PATH={buildDir}"
 			 	" -D USE_FFMPEG=OFF"
 			 	" -D USE_QT=OFF"
-			 	" -D USEPYTHON=OFF"
+			 	" -D USE_PYTHON=OFF"
 			 	" -D BUILDSTATIC=OFF"
 			 	" -D OPENEXR_INCLUDE_PATH={buildDir}\\include"
 			 	" -D OPENEXR_IMATH_LIBRARY={buildDir}\\lib\\Imath-2_2.lib"
