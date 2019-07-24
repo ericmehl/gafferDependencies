@@ -98,9 +98,25 @@ if %ERRORLEVEL% NEQ 0 (
 	exit /b %ERRORLEVEL%
 )
 echo ===============================================================================
-echo Building EXR...
+echo Building IlmBase...
 echo ===============================================================================
-call %ROOT_DIR%\winbuild\buildEXR.bat
+cd %ROOT_DIR% && python build/build.py --project IlmBase --buildDir %BUILD_DIR%
+if %ERRORLEVEL% NEQ 0 (
+	echo "Error(s) building OpenEXR"
+	exit /b %ERRORLEVEL%
+)
+echo ===============================================================================
+echo Building PyIlmBase...
+echo ===============================================================================
+cd %ROOT_DIR% && python build/build.py --project PyIlmBase --buildDir %BUILD_DIR%
+if %ERRORLEVEL% NEQ 0 (
+	echo "Error(s) building OpenEXR"
+	exit /b %ERRORLEVEL%
+)
+echo ===============================================================================
+echo Building OpenEXR...
+echo ===============================================================================
+cd %ROOT_DIR% && python build/build.py --project OpenEXR --buildDir %BUILD_DIR%
 if %ERRORLEVEL% NEQ 0 (
 	echo "Error(s) building OpenEXR"
 	exit /b %ERRORLEVEL%
@@ -140,7 +156,7 @@ if %ERRORLEVEL% NEQ 0 (
 echo ===============================================================================
 echo Building Blosc...
 echo ===============================================================================
-call %ROOT_DIR%\winbuild\buildBlosc.bat
+cd %ROOT_DIR% && python build/build.py --project Blosc --buildDir %BUILD_DIR%
 if %ERRORLEVEL% NEQ 0 (
 	echo "Error(s) building Blosc"
 	exit /b %ERRORLEVEL%
@@ -148,7 +164,7 @@ if %ERRORLEVEL% NEQ 0 (
 echo ===============================================================================
 echo Building OpenVDB...
 echo ===============================================================================
-call %ROOT_DIR%\winbuild\buildVDB.bat
+cd %ROOT_DIR% && python build/build.py --project OpenVDB --buildDir %BUILD_DIR%
 if %ERRORLEVEL% NEQ 0 (
 	echo "Error(s) building OpenVDB"
 	exit /b %ERRORLEVEL%
@@ -228,7 +244,7 @@ if %ERRORLEVEL% NEQ 0 (
 echo ===============================================================================
 echo Building Qt...
 echo ===============================================================================
-call %ROOT_DIR%\winbuild\buildQt.bat
+cd %ROOT_DIR% && python build/build.py --project Qt --buildDir %BUILD_DIR%
 if %ERRORLEVEL% NEQ 0 (
 	echo "Error(s) building Qt"
 	exit /b %ERRORLEVEL%
@@ -236,7 +252,7 @@ if %ERRORLEVEL% NEQ 0 (
 echo ===============================================================================
 echo Building PySide...
 echo ===============================================================================
-call %ROOT_DIR%\winbuild\buildPySide.bat
+cd %ROOT_DIR% && python build/build.py --project PySide --buildDir %BUILD_DIR%
 if %ERRORLEVEL% NEQ 0 (
 	echo "Error(s) building PySide"
 	exit /b %ERRORLEVEL%
