@@ -18,6 +18,10 @@
 
 	"platform:windows" : {
 
+		"variables" : {
+			"cmakeGenerator" : "\"Visual Studio 15 2017 Win64\"",
+		},
+
 		"downloads" : [
 
 			"https://github.com/openexr/openexr/archive/v2.3.0.zip"
@@ -28,21 +32,17 @@
 		"commands" : [
 			"mkdir gafferBuild",
 			"cd gafferBuild && cmake"
-				" -DCMAKE_INSTALL_PREFIX={buildDir}"
-				" .."
+				" -D CMAKE_INSTALL_PREFIX={buildDir}"
+				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
 				" -G {cmakeGenerator}"
-				# " -D OPENEXR_BUILD_ILMBASE=OFF"
-				# " -D OPENEXR_BUILD_OPENEXR=ON"
-				# " -D OPENEXR_BUILD_PYTHON_LIBS=ON"
-				# " -D OPENEXR_BUILD_VIEWERS=OFF"
-				" -DCMAKE_PREFIX_PATH={buildDir}"
-				# " -D BOOST_ROOT={buildDir}"
-				# " -D Boost_INCLUDE_DIRS={buildDir}\\include\\boost-1_61"
-				# " -D PYTHON_INCLUDE_PATH={buildDir}\\include"
-				# " -D ILMBASE_PACKAGE_PREFIX={buildDir}"
-				# " -D ILMBASE_LOCATION={buildDir}"
+				" -D CMAKE_PREFIX_PATH={buildDir}"
+				# " -D OPENEXR_NAMESPACE_VERSIONING=OFF"
+				" -D OPENEXR_BUILD_TESTS=OFF"
 				" ..",
-			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -j {jobs}",
+			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install",
+			"rename {buildDir}\\lib\\Half-2_3.lib {buildDir}\\lib\\Half.lib",	# Packages expect Half to not have version suffix
+			"copy {buildDir}\\lib\\python2.7\\site-packages\\iex.pyd {buildDir}\\python",
+			"copy {buildDir}\\lib\\python2.7\\site-packages\\imath.pyd {buildDir}\\python",
 		]
 	},
 
