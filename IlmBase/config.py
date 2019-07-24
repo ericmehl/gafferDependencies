@@ -18,10 +18,6 @@
 
 	"platform:windows" : {
 
-		"variables" : {
-			"cmakeGenerator" : "\"Visual Studio 15 2017 Win64\"",
-		},
-
 		"commands" : [
 
 			"mkdir gafferBuild",
@@ -34,6 +30,6 @@
 				" ..",
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -j {jobs}",
 		]
-	}
+	},
 
 }
