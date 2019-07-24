@@ -65,4 +65,41 @@
 
 	},
 
+	"platform:windows" : {
+
+		"variables" : {
+		
+			"cmakeGenerator" : "\"Visual Studio 15 2017 Win64\"",
+		},
+
+		"commands" : [
+			# OpenVDB requests Python 2.7 specifically but Boost doesn't add version numbers until v1.67
+			"copy {buildDir}\\lib\\boost_python-vc140-mt-1_61.lib {buildDir}\\lib\\boost_python27-vc140-mt-1_61.lib",
+			"mkdir gafferBuild",
+			"cd gafferBuild && "
+				" cmake"
+				" -Wno-dev"
+				" -G {cmakeGenerator}"
+				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
+				" -D CMAKE_INSTALL_PREFIX={buildDir}"
+				" -D OPENVDB_BUILD_UNITTESTS=OFF"
+				" -D OPENVDB_BUILD_DOCS=OFF"
+				" -D OPENVDB_BUILD_PYTHON_MODULE=ON"
+				" -D USE_GLFW3=OFF"
+				" -D TBB_LOCATION={buildDir}"
+				" -D BOOST_ROOT={buildDir}"
+				" -D GLEW_LOCATION={buildDir}"
+				" -D ILMBASE_LOCATION={buildDir}"
+				" -D OPENEXR_LOCATION={buildDir}"
+				" -D BLOSC_LOCATION={buildDir}"
+				" -D OPENVDB_ENABLE_3_ABI_COMPATIBLE=OFF"
+				" ..",
+
+			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install",
+			"del {buildDir}\\lib\\boost_python27-vc140-mt-1_61.lib"
+
+		],
+
+	},
+
 }
