@@ -45,19 +45,20 @@
 
 		"environment" : {
 
-			"PATH" : "{buildDir}\\bin;%PATH%",
+			"PATH" : "{buildDir}\\bin;{buildDir}\\lib;%PATH%",
 			"PYTHONHOME" : "{buildDir}",
 			"PYTHONPATH" : "{buildDir}\\python;%PYTHONPATH%",
 
 		},
 
 		"commands" : [
-			"python setup.py"
+			"python setup.py install"
 				" --ignore-git"
 				" --qmake=%BUILD_DIR%\\bin\\qmake.exe"
 				" --openssl=%BUILD_DIR%\\lib"
 				" --cmake=\"C:\\Program Files\\CMake\\bin\\cmake.exe\""
-				" install",
+				" --jobs {jobs}"
+				" --no-examples",
 		]
 	},
 
