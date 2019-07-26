@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/openexr/openexr/releases/download/v2.3.0/ilmbase-2.3.0.zip"
+		"https://github.com/openexr/openexr/releases/download/v2.3.0/ilmbase-2.3.0.tar.gz"
 
 	],
 
@@ -20,7 +20,7 @@
 
 		"commands" : [
 
-			"IlmBase on Windows is built as part of OpenEXR",
+			"echo IlmBase on Windows is built as part of OpenEXR",
 		]
 	},
 

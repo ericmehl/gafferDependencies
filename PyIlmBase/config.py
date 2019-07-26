@@ -31,7 +31,7 @@
 	"platform:windows" : {
 
 		"commands" : [
-			"PyIlmBase on Windows is built as part of OpenEXR",
+			"echo PyIlmBase on Windows is built as part of OpenEXR",
 		]
 	},
 
