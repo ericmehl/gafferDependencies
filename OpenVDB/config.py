@@ -74,7 +74,6 @@
 
 		"commands" : [
 			# OpenVDB requests Python 2.7 specifically but Boost doesn't add version numbers until v1.67
-			"copy {buildDir}\\lib\\boost_python-vc140-mt-1_61.lib {buildDir}\\lib\\boost_python27-vc140-mt-1_61.lib",
 			"mkdir gafferBuild",
 			"cd gafferBuild && "
 				" cmake"
@@ -96,7 +95,6 @@
 				" ..",
 
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install",
-			"del {buildDir}\\lib\\boost_python27-vc140-mt-1_61.lib"
 
 		],
 
