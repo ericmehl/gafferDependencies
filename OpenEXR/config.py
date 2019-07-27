@@ -41,8 +41,8 @@
 				" ..",
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install",
 			"rename {buildDir}\\lib\\Half-2_3.lib Half.lib",	# Packages expect Half to not have version suffix
-			"copy {buildDir}\\lib\\python2.7\\site-packages\\iex.pyd {buildDir}\\python",
-			"copy {buildDir}\\lib\\python2.7\\site-packages\\imath.pyd {buildDir}\\python",
+			"copy {buildDir}\\lib\\python2.7\\site-packages\\iex.pyd {buildDir}\\python\\iex.pyd",
+			"copy {buildDir}\\lib\\python2.7\\site-packages\\imath.pyd {buildDir}\\python\\imath.pyd",
 		]
 	},
 
