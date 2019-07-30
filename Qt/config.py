@@ -23,6 +23,11 @@
 			" -skip qtwebengine"
 			" -skip qt3d"
 			" -skip qtdeclarative"
+			" -skip qtwebchannel"
+			" -skip qtdatavisualization"
+			" -skip qtgamepad"
+			" -skip qttexttospeech"
+			" -skip qtpurchasing"
 			" -no-libudev"
 			" -no-gstreamer"
 			" -no-icu"
@@ -98,7 +103,6 @@
 				" -nomake examples"
 				" -nomake tests"
 				" -system-zlib"
-				" -no-openssl"
 				" -I {buildDir}\\include"
 				" -L {buildDir}\\lib",
 			"jom.exe",
