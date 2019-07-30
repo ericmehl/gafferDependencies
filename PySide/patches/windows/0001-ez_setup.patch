@@ -1,0 +1,16 @@
+--- ./ez_setup.py
++++ ./ez_setup.py
+@@ -220,10 +220,11 @@
+     """
+     target = os.path.abspath(target)
+     ps_cmd = (
++        "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; "
+         "[System.Net.WebRequest]::DefaultWebProxy.Credentials = "
+         "[System.Net.CredentialCache]::DefaultCredentials; "
+-        "(new-object System.Net.WebClient).DownloadFile({}, {})".format(
+-            url, target))
++        "(new-object System.Net.WebClient).DownloadFile(\"{}\", \"{}\")".format(
++            url, target)
+     )
+     cmd = [
+         'powershell',

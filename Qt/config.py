@@ -2,11 +2,9 @@
 
 	"downloads" : [
 
-		"https://damassets.autodesk.net/content/dam/autodesk/www/Company/files/2018/Qt561ForMaya2018Update4.zip"
+		"https://download.qt.io/archive/qt/5.11/5.11.2/single/qt-everywhere-src-5.11.2.tar.xz"
 
 	],
-
-	"workingDir" : "qt-adsk-5.6.1-vfx",
 
 	"license" : "LICENSE.LGPLv21",
 
@@ -72,18 +70,17 @@
 
 		"environment" : {
 
-			"PATH" : "%ROOT_DIR%\\Qt\\working\\qt-adsk-5.6.1-vfx\\qtbase\\lib;{buildDir}\\lib;{buildDir}\\bin;%PATH%",
+			"PATH" : "%ROOT_DIR%\\Qt\\working\\qt-everywhere-src-5.11.2\\qtbase\\lib;{buildDir}\\lib;{buildDir}\\bin;%PATH%",
 
 		},
 
 		"commands" : [
 
-			"cmake -E tar xf ../qt561-webkit.tgz",
 			"copy {buildDir}\\lib\\zlib.lib {buildDir}\\lib\\zdll.lib",
 			"copy {buildDir}\\lib\\libpng16.lib {buildDir}\\lib\\libpng.lib",
 			"copy {buildDir}\\lib\\jpeg.lib {buildDir}\\lib\\libjpeg.lib",
 			# help Qt find the right zlib.dll
-			"copy {buildDir}\\bin\\zlib.dll %ROOT_DIR%\\Qt\\working\\qt-adsk-5.6.1-vfx\\qtbase\\bin\\zlib.dll",
+			"copy {buildDir}\\bin\\zlib.dll %ROOT_DIR%\\Qt\\working\\qt-everywhere-src-5.11.2\\qtbase\\bin\\zlib.dll",
 			"call configure.bat"
 				" -prefix {buildDir}"
 				" -plugindir {buildDir}\\qt\\plugins"
@@ -95,8 +92,9 @@
 				" -no-dbus"
 				" -skip qtconnectivity"
 				" -skip qtwebengine"
+				" -skip qtdatavisualization"
+				" -skip qttexttospeech"
 				" -skip qt3d"
-				" -skip qtdeclarative"
 				" -nomake examples"
 				" -nomake tests"
 				" -system-zlib"
