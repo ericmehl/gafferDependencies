@@ -2,11 +2,9 @@
 
 	"downloads" : [
 
-		"https://damassets.autodesk.net/content/dam/autodesk/www/Company/files/2018/Qt561ForMaya2018Update4.zip"
+		"https://download.qt.io/archive/qt/5.6/5.6.1/single/qt-everywhere-opensource-src-5.6.1.tar.xz"
 
 	],
-
-	"workingDir" : "qt-adsk-5.6.1-vfx",
 
 	"license" : "LICENSE.LGPLv21",
 
@@ -67,5 +65,43 @@
 		},
 
 	},
+
+	"platform:windows" : {
+
+		"variables" : {
+
+			"PATH" : "%PATH%;{buildDir}\\lib;{buildDir}\\bin",
+
+		},
+
+		"commands" : [
+
+			"copy {buildDir}\\lib\\zlib.lib {buildDir}\\lib\\zdll.lib",
+			# "copy {buildDir}\\lib\\libpng.lib {buildDir}\\lib\\libpng16.lib",
+			"copy {buildDir}\\lib\\jpeg.lib {buildDir}\\lib\\libjpeg.lib",
+			"call configure.bat"
+				" -prefix {buildDir}"
+				" -plugindir {buildDir}\\qt\\plugins"
+				" -release"
+				" -opensource"
+				" -confirm-license"
+				" -opengl desktop"
+				" -no-angle"
+				" -no-dbus"
+				" -skip qtconnectivity"
+				" -skip qtwebengine"
+				" -skip qt3d"
+				" -skip qtdeclarative"
+				" -nomake examples"
+				" -nomake tests"
+				" -system-zlib"
+				" -no-openssl"
+				" -I {buildDir}\\include"
+				" -L {buildDir}\\lib",
+			"jom.exe",
+			"jom.exe install",
+
+		]
+	}
 
 }
