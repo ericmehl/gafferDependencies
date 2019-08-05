@@ -2,9 +2,11 @@
 
 	"downloads" : [
 
-		"https://download.qt.io/archive/qt/5.6/5.6.1/single/qt-everywhere-opensource-src-5.6.1.tar.xz"
+		"https://damassets.autodesk.net/content/dam/autodesk/www/Company/files/2018/Qt561ForMaya2018Update4.zip"
 
 	],
+
+	"workingDir" : "qt-adsk-5.6.1-vfx",
 
 	"license" : "LICENSE.LGPLv21",
 
@@ -76,8 +78,9 @@
 
 		"commands" : [
 
+			"cmake -E tar xf ../qt561-webkit.tgz",
 			"copy {buildDir}\\lib\\zlib.lib {buildDir}\\lib\\zdll.lib",
-			# "copy {buildDir}\\lib\\libpng.lib {buildDir}\\lib\\libpng16.lib",
+			"copy {buildDir}\\lib\\libpng16.lib {buildDir}\\lib\\libpng.lib",
 			"copy {buildDir}\\lib\\jpeg.lib {buildDir}\\lib\\libjpeg.lib",
 			"call configure.bat"
 				" -prefix {buildDir}"
