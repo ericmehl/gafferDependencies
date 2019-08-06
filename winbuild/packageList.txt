@@ -33,6 +33,12 @@ bin/tbb*
 bin/turbojpeg*
 bin/zlib*
 
+bin/Iex*
+bin/Half*
+bin/Imath*
+bin/IlmImf*
+bin/IlmThread*
+
 bin/libpython.py
 
 lib/blosc*
@@ -41,11 +47,6 @@ lib/boost_*
 
 lib/IECore*
 
-lib/Iex*
-lib/Half*
-lib/Imath*
-lib/IlmImf*
-lib/IlmThread*
 lib/PyIex*
 lib/PyImath*
 
