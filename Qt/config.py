@@ -72,7 +72,7 @@
 
 		"variables" : {
 
-			"PATH" : "%PATH%;{buildDir}\\lib;{buildDir}\\bin",
+			"PATH" : "{buildDir}\\lib;{buildDir}\\bin;%PATH%",
 
 		},
 
