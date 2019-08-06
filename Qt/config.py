@@ -101,8 +101,8 @@
 				" -no-openssl"
 				" -I {buildDir}\\include"
 				" -L {buildDir}\\lib",
-			"jom.exe",
-			"jom.exe install",
+			"echo %PATH% && jom.exe",
+			"echo %PATH% && jom.exe install",
 
 		]
 	}
