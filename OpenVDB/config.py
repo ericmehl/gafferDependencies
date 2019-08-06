@@ -95,6 +95,7 @@
 				" ..",
 
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install",
+			"copy {buildDir}\\lib\\python2.7\\pyopenvdb.pyd {buildDir}\\python\\pyopenvdb.pyd"
 
 		],
 
