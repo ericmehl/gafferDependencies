@@ -83,7 +83,7 @@
 			"copy {buildDir}\\lib\\libpng16.lib {buildDir}\\lib\\libpng.lib",
 			"copy {buildDir}\\lib\\jpeg.lib {buildDir}\\lib\\libjpeg.lib",
 			# help Qt find the right zlib.dll
-			"copy {buildDir}\\bin\\zlib.dll %ROOT_DIR%\\Qt\\working\\{workingDir}\\qtbase\\bin\\zlib.dll",
+			"copy {buildDir}\\bin\\zlib.dll %ROOT_DIR%\\Qt\\working\\qt-adsk-5.6.1-vfx\\qtbase\\bin\\zlib.dll",
 			"call configure.bat"
 				" -prefix {buildDir}"
 				" -plugindir {buildDir}\\qt\\plugins"
