@@ -72,7 +72,7 @@
 
 		"variables" : {
 
-			"PATH" : "{buildDir}\\lib;{buildDir}\\bin;%PATH%",
+			"PATH" : "%ROOT_DIR%\\Qt\\working\\qt-adsk-5.6.1-vfx\\qtbase\\lib;{buildDir}\\lib;{buildDir}\\bin;%PATH%",
 
 		},
 
