@@ -41,6 +41,8 @@ bin/IlmThread*
 
 bin/libpython.py
 
+bin/cmark-gfm.dll
+
 lib/blosc*
 
 lib/boost_*
