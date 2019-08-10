@@ -103,7 +103,7 @@
 				" -no-openssl"
 				" -I {buildDir}\\include"
 				" -L {buildDir}\\lib",
-			"echo %PATH% && jom.exe",
+			"set PATH=%ROOT_DIR%\\Qt\\working\\qt-adsk-5.6.1-vfx\\qtbase\\lib;%BUILD_DIR%\\lib;%BUILD_DIR%\\bin;%PATH% && echo %PATH% && jom.exe",
 			"echo %PATH% && jom.exe install",
 
 		]
