@@ -70,7 +70,7 @@
 
 	"platform:windows" : {
 
-		"variables" : {
+		"environment" : {
 
 			"PATH" : "%ROOT_DIR%\\Qt\\working\\qt-adsk-5.6.1-vfx\\qtbase\\lib;{buildDir}\\lib;{buildDir}\\bin;%PATH%",
 
@@ -103,8 +103,8 @@
 				" -no-openssl"
 				" -I {buildDir}\\include"
 				" -L {buildDir}\\lib",
-			"set PATH=%ROOT_DIR%\\Qt\\working\\qt-adsk-5.6.1-vfx\\qtbase\\lib;%BUILD_DIR%\\lib;%BUILD_DIR%\\bin;%PATH% && echo %PATH% && jom.exe",
-			"echo %PATH% && jom.exe install",
+			"jom.exe",
+			"jom.exe install",
 
 		]
 	}
