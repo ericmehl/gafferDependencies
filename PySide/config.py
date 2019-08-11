@@ -48,6 +48,7 @@
 			"PATH" : "{buildDir}\\bin;{buildDir}\\lib;%PATH%",
 			"PYTHONHOME" : "{buildDir}",
 			"PYTHONPATH" : "{buildDir}\\python;%PYTHONPATH%",
+			"VERSION" : "",	# PySide will pull in VERSION from the environment if it exists and cause a failure because the --ignore-git conflicts with VERSION
 
 		},
 
