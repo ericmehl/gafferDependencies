@@ -67,7 +67,7 @@
 				"copy {buildDir}\\lib\\site-packages\\PySide2\\release\\pyside*.* {buildDir}\\python\\PySide2",
 				"copy {buildDir}\\lib\\site-packages\\PySide2\\release\\Qt*.* {buildDir}\\python\\PySide2",
 				"copy {buildDir}\\lib\\site-packages\\PySide2\\release\\shiboken*.* {buildDir}\\python\\PySide2",
-				"copy {buildDir}\\lib\\site-packages\\PySide2\\release\\__init__.* {buildDir}\\python\\PySide2"
+				"copy {buildDir}\\lib\\site-packages\\PySide2\\release\\__init__.* {buildDir}\\python\\PySide2",
 				"xcopy /s /e /h /y /i {buildDir}\\lib\\site-packages\\PySide2\\release\\plugins {buildDir}\\python\\PySide2\\plugins",
 				"xcopy /s /e /h /y /i {buildDir}\\lib\\site-packages\\PySide2\\include {buildDir}\\include\\PySide2",
 				"xcopy /s /e /h /y /i {buildDir}\\lib\\site-packages\\PySide2\\translations {buildDir}\\python\\PySide2\\translations",
