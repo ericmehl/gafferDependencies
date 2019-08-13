@@ -43,6 +43,12 @@ bin/libpython.py
 
 bin/cmark-gfm.dll
 
+lib/Iex*
+lib/Half*
+lib/Imath*
+lib/IlmImf*
+lib/IlmThread*
+
 lib/blosc*
 
 lib/boost_*
