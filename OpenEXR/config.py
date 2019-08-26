@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/openexr/openexr/releases/download/v2.3.0/openexr-2.3.0.tar.gz"
+		"https://github.com/openexr/openexr/releases/download/v2.2.0/openexr-2.2.0.tar.gz"
 
 	],
 
@@ -24,7 +24,7 @@
 
 		"downloads" : [
 
-			"https://github.com/openexr/openexr/archive/v2.3.0.zip"
+			"https://github.com/openexr/openexr/archive/v2.2.0.zip"
 
 		],
 
@@ -41,7 +41,7 @@
 				" -D OPENEXR_BUILD_TESTS=OFF"
 				" ..",
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install",
-			"rename {buildDir}\\lib\\Half-2_3.lib Half.lib",	# Packages expect Half to not have version suffix
+			"rename {buildDir}\\lib\\Half-2_2.lib Half.lib",	# Packages expect Half to not have version suffix
 			"if not exist {buildDir}\\python mkdir {buildDir}\\python",
 			"copy {buildDir}\\lib\\python2.7\\site-packages\\iex.pyd {buildDir}\\python\\iex.pyd",
 			"copy {buildDir}\\lib\\python2.7\\site-packages\\imath.pyd {buildDir}\\python\\imath.pyd",

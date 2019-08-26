@@ -61,10 +61,10 @@
 				" -D USE_MAYA=OFF"
 				" -D ALEMBIC_LIB_USES_BOOST=TRUE"
 				" -D ALEMBIC_ILMBASE_HALF_LIB={buildDir}\\lib\\half.lib"
-				" -D ALEMBIC_ILMBASE_IEX_LIB={buildDir}\\lib\\Iex-2_3.lib"
-				" -D ALEMBIC_ILMBASE_IEXMATH_LIB={buildDir}\\lib\\IexMath-2_3.lib"
-				" -D ALEMBIC_ILMBASE_ILMTHREAD_LIB={buildDir}\\lib\\IlmThread-2_3.lib"
-				" -D ALEMBIC_ILMBASE_IMATH_LIB={buildDir}\\lib\\Imath-2_3.lib"
+				" -D ALEMBIC_ILMBASE_IEX_LIB={buildDir}\\lib\\Iex-2_2.lib"
+				" -D ALEMBIC_ILMBASE_IEXMATH_LIB={buildDir}\\lib\\IexMath-2_2.lib"
+				" -D ALEMBIC_ILMBASE_ILMTHREAD_LIB={buildDir}\\lib\\IlmThread-2_2.lib"
+				" -D ALEMBIC_ILMBASE_IMATH_LIB={buildDir}\\lib\\Imath-2_2.lib"
 				" .",
 			"cmake --build . --config {cmakeBuildType} --target install"
 
