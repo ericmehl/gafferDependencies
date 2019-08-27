@@ -39,7 +39,7 @@
 			 	" -D USEPYTHON=OFF"
 			 	" -D BUILDSTATIC=OFF"
 			 	" -D OPENEXR_INCLUDE_PATH={buildDir}\\include"
-			 	" -D OPENEXR_IMATH_LIBRARY={buildDir}\\lib\\Imath2-2.lib"
+			 	" -D OPENEXR_IMATH_LIBRARY={buildDir}\\lib\\Imath-2_2.lib"
 			 	" -D OPENEXR_ILMIMF_LIBRARY={buildDir}\\lib\\IlmImf-2_2.lib"
 				" -D OPENEXR_IEX_LIBRARY={buildDir}\\lib\\Iex-2_2.lib"
 				" -D OPENEXR_ILMTHREAD_LIBRARY={buildDir}\\lib\\IlmThread-2_2.lib"
