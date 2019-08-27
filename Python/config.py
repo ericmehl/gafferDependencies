@@ -45,7 +45,7 @@
 		"downloads" : [
 
 			"https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz",
-			"https://github.com/python-cmake-buildsystem/python-cmake-buildsystem/archive/master.tar.gz",
+			"https://github.com/hypothetical-inc/python-cmake-buildsystem/archive/master.tar.gz",
 
 		],
 
