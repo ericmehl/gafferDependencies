@@ -1,0 +1,25 @@
+--- ./PyIlmBase/PyIex/CMakeLists.txt
++++ ./PyIlmBase/PyIex/CMakeLists.txt
+@@ -12,13 +12,19 @@
+ 	lib
+ )
+ 
+-ADD_LIBRARY ( iexmodule ${LIB_TYPE}
++ADD_LIBRARY ( iexmodule MODULE
+ 	iexmodule.cpp
+ )
+ 
+-SET_TARGET_PROPERTIES ( iexmodule
++IF ( ${PLATFORM_WINDOWS} )
++	SET_TARGET_PROPERTIES ( iexmodule
++		PROPERTIES PREFIX "" SUFFIX ".pyd" OUTPUT_NAME iex BUILD_WITH_INSTALL_RPATH ON
++	)
++ELSE ()
++	SET_TARGET_PROPERTIES ( iexmodule
+ 	PROPERTIES PREFIX "" SUFFIX ".so" BUILD_WITH_INSTALL_RPATH ON
+-)
++	)
++ENDIF ()
+ 
+ TARGET_LINK_LIBRARIES ( iexmodule
+ 	PyIex

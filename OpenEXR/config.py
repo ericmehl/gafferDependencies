@@ -6,7 +6,7 @@
 
 	],
 
-	"license" : "LICENSE",
+	"license" : "OpenEXR/LICENSE",
 
 	"commands" : [
 
@@ -28,10 +28,15 @@
 
 		],
 
+		"environment" : {
+
+			"PATH" : "{buildDir}\\bin;{buildDir}\\lib;%PATH%",
+
+		},
 
 		"commands" : [
-			"mkdir gafferBuild",
-			"cd gafferBuild && cmake"
+			"cd IlmBase && mkdir gafferBuild",
+			"cd IlmBase\\gafferBuild && cmake"
 				" -D CMAKE_INSTALL_PREFIX={buildDir}"
 				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
 				" -G {cmakeGenerator}"
@@ -40,8 +45,29 @@
 				# " -D OPENEXR_NAMESPACE_VERSIONING=OFF"
 				" -D OPENEXR_BUILD_TESTS=OFF"
 				" ..",
-			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install",
-			"rename {buildDir}\\lib\\Half-2_2.lib Half.lib",	# Packages expect Half to not have version suffix
+			"cd IlmBase\\gafferBuild && cmake --build . --config {cmakeBuildType} --target install",
+			"cd PyIlmBase && mkdir gafferBuild",
+			"cd PyIlmBase\\gafferBuild && cmake"
+				" -D CMAKE_INSTALL_PREFIX={buildDir}"
+				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
+				" -G {cmakeGenerator}"
+				" -D CMAKE_PREFIX_PATH={buildDir}"
+				" -D ILMBASE_PACKAGE_PREFIX={buildDir}"
+				# " -D OPENEXR_NAMESPACE_VERSIONING=OFF"
+				" -D OPENEXR_BUILD_TESTS=OFF"
+				" ..",
+			"cd PyIlmBase\\gafferBuild && cmake --build . --config {cmakeBuildType} --target install",
+			"cd OpenEXR && mkdir gafferBuild",
+			"cd OpenEXR\\gafferBuild && cmake"
+				" -D CMAKE_INSTALL_PREFIX={buildDir}"
+				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
+				" -G {cmakeGenerator}"
+				" -D CMAKE_PREFIX_PATH={buildDir}"
+				" -D ILMBASE_PACKAGE_PREFIX={buildDir}"
+				# " -D OPENEXR_NAMESPACE_VERSIONING=OFF"
+				" -D OPENEXR_BUILD_TESTS=OFF"
+				" ..",
+			"cd OpenEXR\\gafferBuild && cmake --build . --config {cmakeBuildType} --target install",
 			"if not exist {buildDir}\\python mkdir {buildDir}\\python",
 			"copy {buildDir}\\lib\\python2.7\\site-packages\\iex.pyd {buildDir}\\python\\iex.pyd",
 			"copy {buildDir}\\lib\\python2.7\\site-packages\\imath.pyd {buildDir}\\python\\imath.pyd",

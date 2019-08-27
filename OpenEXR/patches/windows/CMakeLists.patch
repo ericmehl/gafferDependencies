@@ -1,0 +1,48 @@
+--- ./PyIlmBase/CMakeLists.txt
++++ ./PyIlmBase/CMakeLists.txt
+@@ -10,6 +10,13 @@
+ SET(ILMBASE_VERSION_API ${ILMBASE_VERSION_MAJOR}_${ILMBASE_VERSION_MINOR})
+ 
+ 
++# Detect windows
++SET ( PLATFORM_WINDOWS FALSE )
++IF ( "${CMAKE_SYSTEM_NAME}" MATCHES "Windows" )
++	SET ( PLATFORM_WINDOWS TRUE )
++	ADD_DEFINITIONS ( -DPLATFORM_WINDOWS )
++ENDIF()
++
+ # enable the tests
+ ENABLE_TESTING()
+ 
+@@ -34,7 +41,13 @@
+ SET (CMAKE_MACOSX_RPATH 1)
+ SET (BUILD_WITH_INSTALL_RPATH 1)
+ 
+-SET (LIB_TYPE SHARED)
++# Static/shared lib, python modules will always be MODULE though
++IF ( ${PLATFORM_BUILD_STATIC} )
++    ADD_DEFINITIONS ( -DPLATFORM_BUILD_STATIC )
++    SET (LIB_TYPE STATIC)
++ELSE ()
++    SET (LIB_TYPE SHARED)
++ENDIF ()
+ 
+ FIND_PACKAGE ( PythonLibs REQUIRED )
+ FIND_PACKAGE ( PythonInterp REQUIRED )
+@@ -49,6 +62,7 @@
+ 	PyImath
+ 	PyImathNumpy
+ 	${PYTHON_INCLUDE_PATH}
++	${Boost_INCLUDE_DIRS}
+ )
+ 
+ LINK_DIRECTORIES ( ${ILMBASE_PACKAGE_PREFIX}/lib )
+@@ -66,7 +80,7 @@
+ 
+ IF (NUMPY_FOUND)
+   ADD_SUBDIRECTORY ( PyImathNumpy )
+-  ADD_SUBDIRECTORY ( PyImathNumpyTest )
++#  ADD_SUBDIRECTORY ( PyImathNumpyTest )
+ ENDIF ()
+   
+ ##########################
