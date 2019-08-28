@@ -209,14 +209,14 @@ if %ERRORLEVEL% NEQ 0 (
 	echo "Error(s) building Xerces"
 	exit /b %ERRORLEVEL%
 )
-echo ===============================================================================
-echo Building Appleseed...
-echo ===============================================================================
-cd %ROOT_DIR% && python build/build.py --project Appleseed --buildDir %BUILD_DIR%
-if %ERRORLEVEL% NEQ 0 (
-	echo "Error(s) building Appleseed"
-	exit /b %ERRORLEVEL%
-)
+REM echo ===============================================================================
+REM echo Building Appleseed...
+REM echo ===============================================================================
+REM cd %ROOT_DIR% && python build/build.py --project Appleseed --buildDir %BUILD_DIR%
+REM if %ERRORLEVEL% NEQ 0 (
+REM 	echo "Error(s) building Appleseed"
+REM 	exit /b %ERRORLEVEL%
+REM )
 echo ===============================================================================
 echo Building Resources...
 echo ===============================================================================
