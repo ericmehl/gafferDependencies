@@ -51,7 +51,8 @@
 		},
 
 		"commands" : [
-			"python setup.py install"
+			"xcopy /s /e /h /y /i %ROOT_DIR%\\PySide\\working\\pyside-setup-everywhere-src-5.11.2 %ROOT_DIR%\\PySide\\working\\p",	# Shorten overall paths to avoid Windows command character limit
+			"cd ..\\p && python setup.py install"
 				" --ignore-git"
 				" --qmake=%BUILD_DIR%\\bin\\qmake.exe"
 				" --openssl=%BUILD_DIR%\\lib"
@@ -60,16 +61,16 @@
 				" --no-examples",
 				# PySide2 installs to unusual directory structure, clean that up to be more in line with Gaffer
 				"if not exist {buildDir}\\python\\PySide2 mkdir {buildDir}\\python\\PySide2",
-				"copy {buildDir}\\lib\\site-packages\\PySide2\\release\\__init__.* {buildDir}\\python\\PySide2",
-				"copy {buildDir}\\lib\\site-packages\\PySide2\\release\\_utils.* {buildDir}\\python\\PySide2",
-				"copy {buildDir}\\lib\\site-packages\\PySide2\\release\\pyside*.* {buildDir}\\python\\PySide2",
-				"copy {buildDir}\\lib\\site-packages\\PySide2\\release\\Qt*.* {buildDir}\\python\\PySide2",
-				"copy {buildDir}\\lib\\site-packages\\PySide2\\release\\shiboken*.* {buildDir}\\python\\PySide2",
-				"copy {buildDir}\\lib\\site-packages\\PySide2\\release\\__init__.* {buildDir}\\python\\PySide2",
-				"xcopy /s /e /h /y /i {buildDir}\\lib\\site-packages\\PySide2\\release\\plugins {buildDir}\\python\\PySide2\\plugins",
+				"copy {buildDir}\\lib\\site-packages\\PySide2\\__init__.* {buildDir}\\python\\PySide2",
+				"copy {buildDir}\\lib\\site-packages\\PySide2\\pyside*.* {buildDir}\\python\\PySide2",
+				"copy {buildDir}\\lib\\site-packages\\PySide2\\Qt*.* {buildDir}\\python\\PySide2",
+				"copy {buildDir}\\lib\\site-packages\\PySide2\\shiboken*.* {buildDir}\\python\\PySide2",
+				"xcopy /s /e /h /y /i {buildDir}\\lib\\site-packages\\PySide2\\plugins {buildDir}\\python\\PySide2\\plugins",
 				"xcopy /s /e /h /y /i {buildDir}\\lib\\site-packages\\PySide2\\include {buildDir}\\include\\PySide2",
 				"xcopy /s /e /h /y /i {buildDir}\\lib\\site-packages\\PySide2\\translations {buildDir}\\python\\PySide2\\translations",
 				"xcopy /s /e /h /y /i {buildDir}\\lib\\site-packages\\PySide2\\typesystems {buildDir}\\python\\PySide2\\typesystems",
+				"xcopy /s /e /h /y /i {buildDir}\\lib\\site-packages\\PySide2\\support {buildDir}\\python\\PySide2\\typesystems",
+				"xcopy /s /e /h /y /i {buildDir}\\lib\\site-packages\\PySide2\\scripts {buildDir}\\python\\PySide2\\typesystems",
 				"rmdir /s /q {buildDir}\\lib\\site-packages\\PySide2",
 		]
 	},
