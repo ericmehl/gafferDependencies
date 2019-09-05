@@ -274,14 +274,4 @@ include/pxr
 
 include/cmark*.h
 
-appleseed/bin/appleseed.cli.exe
-appleseed/bin/appleseed.dll
-appleseed/bin/appleseed.shared.dll
-appleseed/include
-appleseed/lib
-appleseed/samples
-appleseed/schemas
-appleseed/settings
-appleseed/shaders
-
 share/usd
