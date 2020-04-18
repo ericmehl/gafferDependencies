@@ -14,7 +14,71 @@ import sys
 import tarfile
 import zipfile
 
-__version = "1.1.0"
+__version = "2.0.0"
+
+"""
+Config file format
+==================
+
+Each project config consists of a `config.py` file, which must
+evaluate to a single dictionary containing the config. This
+dictionary specifies everything necessary to build the project.
+
+Dictionary fields
+-----------------
+
+### Build
+
+- dependencies : List of projects that must be built before this one.
+- downloads : List containing the source archives to be downloaded.
+- requiredEnvironment : List of environment variables which must be set
+  externally before `build.py` is run.
+- environment : Dictionary of environment variables to provide to the
+  build.
+- commands : List containing the build commands to be executed.
+- enabled : May be set to `False` to disable a project entirely. This is
+  only expected to be useful in conjunction with platform overrides or
+  variants.
+
+### Packaging
+
+- license : The name of the license file within the source.
+- manifest : List of output files to include in the final package.
+  May contain standard glob matching patterns.
+
+### Variable substitution
+
+Any configuration value may reference variables using Python's standard
+`{variableName}` string substitution syntax. Variables may contain nested
+references to other variables. Projects may define custom variables in
+addition to the standard global variables :
+
+- variables : Dictionary of variables for use in this config.
+- publicVariables : Dictionary of variables for use in this config
+  and in other configs which list this project as a dependency.
+
+### Platform overrides
+
+Configs may specify platform-specific overrides in a dictionary named
+"platform:osx" or "platform:linux". Where a config setting is a dictionary,
+overrides are merged in via `dict.update()`, otherwise they completely
+replace the original value.
+
+### Variants
+
+Projects may specify a set of variants which are used to provide different
+permutations of the build.
+
+- variants : Optional list of variants for this project. If a project has
+  variants, a `--variant:<ProjectName>` command line option is automatically
+  generated, and the variant is automatically included in the final
+  package name.
+- variant:<VariantName> : A dictionary of overrides to apply to the config when
+  building the specified variant for this project. These are applied in the
+  same way as platform overrides.
+- variant:<ProjectName>:<VariantName> : Dictionary of overrides to apply
+  based on the current variant of another project specified by `ProjectName`.
+"""
 
 def __projects() :
 
@@ -51,7 +115,7 @@ def __decompress( archive ) :
 		# Badly behaved archive
 		return "./"
 
-def __loadConfig( project ) :
+def __loadJSON( project ) :
 
 	# Load file. Really we want to use JSON to
 	# enforce a "pure data" methodology, but JSON
@@ -61,22 +125,19 @@ def __loadConfig( project ) :
 	# syntax that we can use in practice.
 
 	with open( project + "/config.py" ) as f :
-		config =f.read()
+		config = f.read()
 
-	config = eval( config )
+	return eval( config )
 
-	# Apply platform-specific config overrides.
+def __applyConfigOverrides( config, key ) :
 
-	platform = "platform:osx" if sys.platform == "darwin" else "platform:linux"
-	platformOverrides = config.pop( platform, {} )
-	for key, value in platformOverrides.items() :
+	overrides = config.get( key, {} )
+	for key, value in overrides.items() :
 
 		if isinstance( value, dict ) and key in config :
 			config[key].update( value )
 		else :
 			config[key] = value
-
-	return config
 
 def __substitute( config, variables, forDigest = False ) :
 
@@ -123,13 +184,20 @@ def __updateDigest( project, config ) :
 		with open( patch ) as f :
 			config["digest"].update( f.read() )
 
-def __loadConfigs( variables ) :
+def __loadConfigs( variables, variants ) :
 
-	# Load configs
+	# Load configs and apply variants and platform overrides.
 
 	configs = {}
 	for project in __projects() :
-		configs[project] = __loadConfig( project )
+		config = __loadJSON( project )
+		if project in variants :
+			__applyConfigOverrides( config, "variant:{}".format( variants[project] ) )
+		for variantProject, variant in variants.items() :
+			__applyConfigOverrides( config, "variant:{}:{}".format( variantProject, variant ) )
+		__applyConfigOverrides( config, "platform:osx" if sys.platform == "darwin" else "platform:linux" )
+		if config.get( "enabled", True ) :
+			configs[project] = config
 
 	# Walk dependency tree to compute digests and
 	# apply substitutions.
@@ -213,12 +281,15 @@ def __buildProject( project, config, buildDir ) :
 
 	if config["license"] is not None :
 		licenseDir = os.path.join( buildDir, "doc/licenses" )
+		licenseDest = os.path.join( licenseDir, project )
 		if not os.path.exists( licenseDir ) :
 			os.makedirs( licenseDir )
 		if os.path.isfile( config["license"] ) :
-			shutil.copy( config["license"], os.path.join( licenseDir, project ) )
+			shutil.copy( config["license"], licenseDest )
 		else :
-			shutil.copytree( config["license"], os.path.join( licenseDir, project ) )
+			if os.path.exists( licenseDest ) :
+				shutil.rmtree( licenseDest )
+			shutil.copytree( config["license"], licenseDest )
 
 	for patch in glob.glob( "../../patches/*.patch" ) :
 		subprocess.check_call( "patch -p1 < {patch}".format( patch = patch ), shell = True )
@@ -233,7 +304,7 @@ def __buildProject( project, config, buildDir ) :
 
 	for link in config.get( "symbolicLinks", [] ) :
 		sys.stderr.write( "Linking {} to {}\n".format( link[0], link[1] ) )
-		if os.path.exists( link[0] ) :
+		if os.path.lexists( link[0] ) :
 			os.remove( link[0] )
 		os.symlink( link[1], link[0] )
 
@@ -315,7 +386,7 @@ parser.add_argument(
 	"--projects",
 	choices = __projects(),
 	nargs = "+",
-	default = __projects(),
+	default = None,
 	help = "The projects to build."
 )
 
@@ -327,11 +398,31 @@ parser.add_argument(
 
 parser.add_argument(
 	"--package",
-	default = "gafferDependencies-{version}-{platform}.tar.gz",
+	default = "gafferDependencies-{version}{variants}-{platform}.tar.gz",
 	help = "The filename of the tarball package to create.",
 )
 
+for project in __projects() :
+
+	config = __loadJSON( project )
+	variants = config.get( "variants" )
+	if not variants :
+		continue
+
+	parser.add_argument(
+		"--variant:{}".format( project ),
+		choices = variants,
+		nargs = 1,
+		default = variants[0],
+		help = "The build variant for {}.".format( project )
+	)
+
 args = parser.parse_args()
+
+variants = {}
+for key, value in vars( args ).items() :
+	if key.startswith( "variant:" ) :
+		variants[key[8:]] = value[0]
 
 variables = {
 	"buildDir" : args.buildDir,
@@ -340,9 +431,15 @@ variables = {
 	"version" : __version,
 	"platform" : "osx" if sys.platform == "darwin" else "linux",
 	"sharedLibraryExtension" : ".dylib" if sys.platform == "darwin" else ".so",
+	"variants" : "".join( "-{}{}".format( key, variants[key] ) for key in sorted( variants.keys() ) ),
 }
 
-configs = __loadConfigs( variables )
+configs = __loadConfigs( variables, variants )
+if args.projects is None :
+	# We don't default to everything in `__projects()`,
+	# because projects may have been disabled based on
+	# platform/variant.
+	args.projects = sorted( configs.keys() )
 
 __checkEnvironment( args.projects, configs )
 __buildProjects( args.projects, configs, args.buildDir )
