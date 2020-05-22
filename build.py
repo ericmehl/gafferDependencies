@@ -6,6 +6,7 @@ import glob
 import hashlib
 import json
 import os
+import operator
 import md5
 import multiprocessing
 import subprocess
@@ -42,7 +43,9 @@ Dictionary fields
 
 ### Packaging
 
+- url : URL for the project website.
 - license : The name of the license file within the source.
+- credit : Any specific credit required to be given to the project.
 - manifest : List of output files to include in the final package.
   May contain standard glob matching patterns.
 
@@ -308,9 +311,13 @@ def __buildProject( project, config, buildDir ) :
 			os.remove( link[0] )
 		os.symlink( link[1], link[0] )
 
-def __checkEnvironment( projects, configs ) :
+def __checkConfigs( projects, configs ) :
 
 	def walk( project, configs ) :
+
+		if "url" not in configs[project] :
+			sys.stderr.write( "{} is missing the \"url\" item\n".format( project ) )
+			sys.exit( 1 )
 
 		for e in configs[project].get( "requiredEnvironment", [] ) :
 			if e not in os.environ :
@@ -356,7 +363,8 @@ def __buildPackage( projects, configs, buildDir, package ) :
 	sys.stderr.write( "Building package {}\n".format( package ) )
 
 	visited = set()
-	manifest = { "doc/licenses" }
+	files = { "doc/licenses" }
+	projectManifest = []
 
 	def walk( project, configs, buildDir ) :
 
@@ -368,16 +376,30 @@ def __buildPackage( projects, configs, buildDir, package ) :
 
 		for pattern in configs[project].get( "manifest", [] ) :
 			for f in glob.glob( os.path.join( buildDir, pattern ) ) :
-				manifest.add( os.path.relpath( f, buildDir ) )
+				files.add( os.path.relpath( f, buildDir ) )
+
+		m = {
+			"name" : project,
+			"url" : configs[project]["url"],
+		}
+		if "credit" in configs[project] :
+			m["credit"] = configs[project]["credit"]
+		if configs[project]["license"] :
+			m["license"] = "./" + project
+		projectManifest.append( m )
 
 		visited.add( project )
 
 	for project in projects :
 		walk( project, configs, buildDir )
 
+	projectManifest.sort( key = operator.itemgetter( "name" ) )
+	with open( os.path.join( buildDir, "doc", "licenses", "manifest.json" ), "w" ) as file :
+		json.dump( projectManifest, file, indent = 4 )
+
 	rootName = os.path.basename( package ).replace( ".tar.gz", "" )
 	with tarfile.open( package, "w:gz" ) as file :
-		for m in manifest :
+		for m in files :
 			file.add( os.path.join( buildDir, m ), arcname = os.path.join( rootName, m ) )
 
 parser = argparse.ArgumentParser()
@@ -392,7 +414,7 @@ parser.add_argument(
 
 parser.add_argument(
 	"--buildDir",
-	required = True,
+	default = "gafferDependencies-{version}{variants}-{platform}",
 	help = "The directory to put the builds in."
 )
 
@@ -425,7 +447,7 @@ for key, value in vars( args ).items() :
 		variants[key[8:]] = value[0]
 
 variables = {
-	"buildDir" : args.buildDir,
+	"buildDir" : os.path.abspath( args.buildDir ),
 	"jobs" : multiprocessing.cpu_count(),
 	"path" : os.environ["PATH"],
 	"version" : __version,
@@ -441,8 +463,10 @@ if args.projects is None :
 	# platform/variant.
 	args.projects = sorted( configs.keys() )
 
-__checkEnvironment( args.projects, configs )
-__buildProjects( args.projects, configs, args.buildDir )
+__checkConfigs( args.projects, configs )
+
+buildDir = variables["buildDir"].format( **variables )
+__buildProjects( args.projects, configs, buildDir )
 
 if args.package :
-	__buildPackage( args.projects, configs, args.buildDir, args.package.format( **variables ) )
+	__buildPackage( args.projects, configs, buildDir, args.package.format( **variables ) )

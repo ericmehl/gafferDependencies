@@ -2,9 +2,11 @@
 
 	"downloads" : [
 
-		"https://github.com/ImageEngine/cortex/archive/10.0.0-a76.tar.gz"
+		"https://github.com/ImageEngine/cortex/archive/10.0.0-a77.tar.gz"
 
 	],
+
+	"url" : "https://github.com/ImageEngine/cortex",
 
 	"license" : "LICENSE",
 
@@ -33,7 +35,8 @@
 			" INSTALL_PYTHON_DIR={buildDir}/python"
 			" INSTALL_ARNOLDOUTPUTDRIVER_NAME={buildDir}/arnold/plugins/ieOutputDriver.so"
 			" INSTALL_IECORE_OPS=''"
-			" PYTHON_CONFIG={buildDir}/bin/python-config"
+			" PYTHON_CONFIG={buildDir}/bin/python{pythonMajorVersion}-config"
+			" PYTHON={buildDir}/bin/python"
 			" BOOST_INCLUDE_PATH={buildDir}/include/boost"
 			" LIBPATH={buildDir}/lib"
 			" BOOST_LIB_SUFFIX=''"

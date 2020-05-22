@@ -9,6 +9,8 @@
 
 	"variants" : [ "2", "3" ],
 
+	"url" : "https://www.python.org",
+
 	"license" : "LICENSE",
 
 	"dependencies" : [ "OpenSSL" ],
@@ -109,7 +111,7 @@
 			( "{buildDir}/bin/python", "../lib/Python.framework/Versions/Current/bin/python{pythonMajorVersion}" ),
 			( "{buildDir}/bin/python{pythonMajorVersion}", "../lib/Python.framework/Versions/Current/bin/python{pythonMajorVersion}" ),
 			( "{buildDir}/bin/python{pythonVersion}", "../lib/Python.framework/Versions/Current/bin/python{pythonVersion}" ),
-
+			( "{buildDir}/lib/Python.framework/Versions/Current/lib/libpython{pythonMajorVersion}.dylib", "libpython{pythonMajorVersion}.{pythonMinorVersion}.dylib" ),
 		],
 
 	},

@@ -2,13 +2,15 @@
 
 	"downloads" : [
 
-		"https://github.com/appleseedhq/appleseed/archive/2.0.5-beta.tar.gz"
+		"https://github.com/appleseedhq/appleseed/archive/2.1.0-beta.tar.gz"
 
 	],
 
+	"url" : "https://appleseedhq.net",
+
 	"license" : "LICENSE.txt",
 
-	"dependencies" : [ "Python", "Xerces", "OpenShadingLanguage", "OpenImageIO", "Boost", "LibPNG", "OpenEXR" ],
+	"dependencies" : [ "Python", "Xerces", "OpenShadingLanguage", "OpenImageIO", "Boost", "LibPNG", "OpenEXR", "LZ4" ],
 
 	"environment" : {
 
@@ -37,9 +39,7 @@
 			" -D WITH_TESTS=OFF"
 			" -D WITH_SAMPLES=OFF"
 			" -D WITH_DOXYGEN=OFF"
-			" -D WITH_PYTHON=ON"
-			" -D WITH_PYTHON2_BINDINGS={withPython2Bindings}"
-			" -D WITH_PYTHON3_BINDINGS={withPython3Bindings}"
+			" {pythonArguments}"
 			" -D USE_STATIC_BOOST=OFF"
 			" -D USE_STATIC_OIIO=OFF"
 			" -D USE_STATIC_OSL=OFF"
@@ -53,8 +53,7 @@
 			" -D WARNINGS_AS_ERRORS=OFF"
 			" -D CMAKE_PREFIX_PATH={buildDir}"
 			" -D CMAKE_INSTALL_PREFIX={buildDir}/appleseed"
-			" -D PYTHON_INCLUDE_DIR={pythonIncludeDir}"
-			" -D Boost_PYTHON_LIBRARY_RELEASE={buildDir}/lib/libboost_python{pythonMajorVersion}{pythonMinorVersion}{sharedLibraryExtension}"
+			" -D CMAKE_LIBRARY_PATH={pythonLibDir}"
 			" ..",
 
 		"cd build && make install -j {jobs} VERBOSE=1"
@@ -65,8 +64,12 @@
 
 		"variables" : {
 
-			"withPython2Bindings" : "ON",
-			"withPython3Bindings" : "OFF",
+			"pythonArguments" :
+				" -D WITH_PYTHON2_BINDINGS=ON"
+				" -D WITH_PYTHON3_BINDINGS=OFF"
+				" -D PYTHON_INCLUDE_DIR={pythonIncludeDir}"
+				" -D Boost_PYTHON_LIBRARY={buildDir}/lib/libboost_python{pythonMajorVersion}{pythonMinorVersion}{sharedLibraryExtension}"
+			,
 
 		},
 
@@ -76,8 +79,14 @@
 
 		"variables" : {
 
-			"withPython2Bindings" : "OFF",
-			"withPython3Bindings" : "ON",
+			"pythonArguments" :
+				" -D WITH_PYTHON2_BINDINGS=OFF"
+				" -D WITH_PYTHON3_BINDINGS=ON"
+				" -D PYTHON3_INCLUDE_DIR={pythonIncludeDir}"
+				" -D PYTHON_MAJOR_VERSION={pythonMajorVersion}"
+				" -D PYTHON_MINOR_VERSION={pythonMinorVersion}"
+				" -D Boost_PYTHON3_LIBRARY={buildDir}/lib/libboost_python{pythonMajorVersion}{pythonMinorVersion}{sharedLibraryExtension}"
+			,
 
 		},
 
