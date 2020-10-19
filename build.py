@@ -144,7 +144,7 @@ def __applyConfigOverrides( config, key ) :
 
 def __substitute( config, variables, forDigest = False ) :
 
-	if not forDigest :
+	if forDigest :
 		# These shouldn't affect the output of the build, so
 		# hold them constant when computing a digest.
 		variables = variables.copy()
@@ -424,6 +424,13 @@ parser.add_argument(
 	help = "The filename of the tarball package to create.",
 )
 
+parser.add_argument(
+	"--jobs",
+	type = int,
+	default = multiprocessing.cpu_count(),
+	help = "The number of build jobs to run in parallel. Defaults to cpu_count."
+)
+
 for project in __projects() :
 
 	config = __loadJSON( project )
@@ -448,11 +455,12 @@ for key, value in vars( args ).items() :
 
 variables = {
 	"buildDir" : os.path.abspath( args.buildDir ),
-	"jobs" : multiprocessing.cpu_count(),
+	"jobs" : args.jobs,
 	"path" : os.environ["PATH"],
 	"version" : __version,
 	"platform" : "osx" if sys.platform == "darwin" else "linux",
 	"sharedLibraryExtension" : ".dylib" if sys.platform == "darwin" else ".so",
+	"c++Standard" : "c++14",
 	"variants" : "".join( "-{}{}".format( key, variants[key] ) for key in sorted( variants.keys() ) ),
 }
 
