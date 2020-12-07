@@ -1,4 +1,16 @@
-2.x.x
+2.1.1
+-----
+
+- OpenSSL : Fixed packaging of missing libraries.
+
+2.1.0
+-----
+
+- Cortex : Updated to version 10.1.2.0.
+- LibFFI : Fixed compatibility with pre-haswell era processors.
+- OpenSSL : Updated to version 1.1.1h.
+
+2.0.0
 -----
 
 This major version introduces the concept of build variants, and provides package variants for both Python 2 and 3.
@@ -13,7 +25,7 @@ This major version introduces the concept of build variants, and provides packag
 - Subprocess32 : Updated to version 3.5.4.
 - Appleseed : Updated to version 2.1.0-beta.
 - LZ4 : Added version 1.9.2.
-- Cortex : Updated to version 10.0.0-a79.
+- Cortex : Updated to version 10.1.0.0.
 - USD : Updated to version 20.11 and added usdImaging.
 - LibRaw : Added version 0.19.5.
 - OpenSubdiv : Added version 3.4.3.
