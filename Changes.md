@@ -1,3 +1,24 @@
+3.0.0 alpha 2
+-------------
+
+- OpenVDB : Updated to version 7.2.2.
+
+3.0.0 alpha 1
+-------------
+
+- PyBind11 : Added version 2.6.2.
+- PugiXML : Added version 1.11.
+- OpenImageIO : Updated to version 2.2.11.1.
+- LibTIFF : Updated to version 4.1.0.
+- OpenShadingLanguage : Updated to version 1.11.11.0.
+- LLVM : Updated to version 10.0.1.
+
+2.2.0
+-----
+
+- Qt : Updated to version 5.12.10.
+- Cortex : Updated to version 10.1.4.0.
+
 2.1.1
 -----
 
