@@ -1,0 +1,31 @@
+From 1c5669f5bdfcf0c48dfcb858e631f0a444022686 Mon Sep 17 00:00:00 2001
+From: Eric Mehl <eric@thinkhypothetical.com>
+Date: Thu, 10 Mar 2022 13:11:21 -0500
+Subject: [PATCH] IECoreGL::TextPrimitive : Fix warning C4701
+
+- Rename second `b` variable and expand bound calculation in loop.
+---
+ src/IECoreGL/TextPrimitive.cpp | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/src/IECoreGL/TextPrimitive.cpp b/src/IECoreGL/TextPrimitive.cpp
+index e803bb83a..88b3ba570 100644
+--- a/src/IECoreGL/TextPrimitive.cpp
++++ b/src/IECoreGL/TextPrimitive.cpp
+@@ -62,9 +62,10 @@ TextPrimitive::TextPrimitive( const std::string &text, FontPtr font )
+ 		V2f advanceSum( 0 );
+ 		for( unsigned i=0; i<m_text.size(); i++ )
+ 		{
+-			Box2f b = m_font->coreFont()->bound( m_text[i] );
+-			b.min += advanceSum;
+-			b.max += advanceSum;
++			Box2f characterB = m_font->coreFont()->bound( m_text[i] );
++			characterB.min += advanceSum;
++			characterB.max += advanceSum;
++			b.extendBy( characterB );
+ 			if( i<m_text.size() - 1 )
+ 			{
+ 				V2f a = m_font->coreFont()->advance( m_text[i], m_text[i+1] );
+-- 
+2.33.1.windows.1
+

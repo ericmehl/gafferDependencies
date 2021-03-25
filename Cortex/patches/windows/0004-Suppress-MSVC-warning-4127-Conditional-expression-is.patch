@@ -1,0 +1,128 @@
+From e9d1d397909d9646bb926077351165d11f307b9d Mon Sep 17 00:00:00 2001
+From: Eric Mehl <eric@thinkhypothetical.com>
+Date: Thu, 10 Mar 2022 13:07:43 -0500
+Subject: [PATCH] Suppress MSVC warning 4127 (Conditional expression is
+ constant)
+
+- This warning seems to have come up as a result of upgrading Boost from 1.68 to 1.76.
+- The Microsoft recommended solution is to use `if constexpr` which is available in c++17. We can switch to that solution and remove the warning suppression when Cortex moves to that standard.
+- The full warning sequence is :
+    cortex\src\iecore\datainterleaveop.cpp(182): error C2220: warning treated as error - no 'object' file generated
+    cortex\src\iecore\datainterleaveop.cpp(182): warning C4127: conditional expression is constant
+    cortex\src\iecore\datainterleaveop.cpp(182): note: consider using 'if constexpr' statement instead
+    cortex\include\iecore\despatchtypeddata.inl(78): note: see reference to function template instantiation 'IECore::DataInterleaveOp::InterleaveFnStage2<FromBaseType>::ReturnType IECore::DataInterleaveOp::InterleaveFnStage2<FromBaseType>::operator ()<DataType>(boost::intrusive_ptr<IECore::Color4fVectorData>)' being compiled
+            with
+            [
+                DataType=IECore::Color4fVectorData
+            ]
+    cortex\include\iecore\despatchtypeddata.inl(78): note: see reference to function template instantiation 'IECore::DataInterleaveOp::InterleaveFnStage2<FromBaseType>::ReturnType IECore::DataInterleaveOp::InterleaveFnStage2<FromBaseType>::operator ()<DataType>(boost::intrusive_ptr<IECore::Color4fVectorData>)' being compiled
+            with
+            [
+                DataType=IECore::Color4fVectorData
+            ]
+    cortex\include\iecore\despatchtypeddata.inl(75): note: while compiling class template member function 'boost::intrusive_ptr<IECore::Data> IECore::Detail::DespatchTypedData<Functor,IECore::Color4fVectorData,ErrorHandler>::Func<Enabler,void>::operator ()(DataType *,Functor &,ErrorHandler &)'
+            with
+            [
+                Functor=IECore::DataInterleaveOp::InterleaveFnStage2<FromBaseType>,
+                ErrorHandler=IECore::Detail::DespatchTypedDataExceptionError,
+                Enabler=IECore::TypeTraits::IsNumericBasedVectorTypedData,
+                DataType=IECore::Color4fVectorData
+            ]
+    cortex\include\iecore\despatchtypeddata.inl(387): note: see reference to function template instantiation 'boost::intrusive_ptr<IECore::Data> IECore::Detail::DespatchTypedData<Functor,IECore::Color4fVectorData,ErrorHandler>::Func<Enabler,void>::operator ()(DataType *,Functor &,ErrorHandler &)' being compiled
+            with
+            [
+                Functor=IECore::DataInterleaveOp::InterleaveFnStage2<FromBaseType>,
+                ErrorHandler=IECore::Detail::DespatchTypedDataExceptionError,
+                Enabler=IECore::TypeTraits::IsNumericBasedVectorTypedData,
+                DataType=IECore::Color4fVectorData
+            ]
+    cortex\include\iecore\despatchtypeddata.inl(389): note: see reference to class template instantiation 'IECore::Detail::DespatchTypedData<Functor,IECore::Color4fVectorData,ErrorHandler>::Func<Enabler,void>' being compiled
+            with
+            [
+                Functor=IECore::DataInterleaveOp::InterleaveFnStage2<FromBaseType>,
+                ErrorHandler=IECore::Detail::DespatchTypedDataExceptionError,
+                Enabler=IECore::TypeTraits::IsNumericBasedVectorTypedData
+            ]
+    cortex\include\iecore\despatchtypeddata.inl(407): note: see reference to function template instantiation 'IECore::DataInterleaveOp::InterleaveFnStage2<FromBaseType>::ReturnType IECore::despatchTypedData<Functor,Enabler,ErrorHandler>(IECore::Data *,Functor &,ErrorHandler &)' being compiled
+            with
+            [
+                Functor=IECore::DataInterleaveOp::InterleaveFnStage2<FromBaseType>,
+                Enabler=IECore::TypeTraits::IsNumericBasedVectorTypedData,
+                ErrorHandler=IECore::Detail::DespatchTypedDataExceptionError
+            ]
+    cortex\include\iecore\despatchtypeddata.inl(413): note: see reference to function template instantiation 'IECore::DataInterleaveOp::InterleaveFnStage2<FromBaseType>::ReturnType IECore::despatchTypedData<Functor,Enabler,IECore::Detail::DespatchTypedDataExceptionError>(IECore::Data *,Functor &)' being compiled
+            with
+            [
+                Functor=IECore::DataInterleaveOp::InterleaveFnStage2<FromBaseType>,
+                Enabler=IECore::TypeTraits::IsNumericBasedVectorTypedData
+            ]
+    cortex\src\iecore\datainterleaveop.cpp(154): note: see reference to function template instantiation 'IECore::DataInterleaveOp::InterleaveFnStage2<FromBaseType>::ReturnType IECore::despatchTypedData<IECore::DataInterleaveOp::InterleaveFnStage2<FromBaseType>,IECore::TypeTraits::IsNumericBasedVectorTypedData>(IECore::Data *,Functor &)' being compiled
+            with
+            [
+                Functor=IECore::DataInterleaveOp::InterleaveFnStage2<FromBaseType>
+            ]
+    cortex\include\iecore\despatchtypeddata.inl(78): note: see reference to function template instantiation 'IECore::DataInterleaveOp::InterleaveFnStage1::ReturnType IECore::DataInterleaveOp::InterleaveFnStage1::operator ()<DataType>(boost::intrusive_ptr<const IECore::FloatVectorData>)' being compiled
+            with
+            [
+                DataType=IECore::FloatVectorData
+            ]
+    cortex\include\iecore\despatchtypeddata.inl(75): note: while compiling class template member function 'boost::intrusive_ptr<IECore::Data> IECore::Detail::DespatchTypedData<Functor,IECore::FloatVectorData,ErrorHandler>::Func<Enabler,void>::operator ()(DataType *,Functor &,ErrorHandler &)'
+            with
+            [
+                Functor=IECore::DataInterleaveOp::InterleaveFnStage1,
+                ErrorHandler=IECore::Detail::DespatchTypedDataExceptionError,
+                Enabler=IECore::TypeTraits::IsNumericVectorTypedData,
+                DataType=IECore::FloatVectorData
+            ]
+    cortex\include\iecore\despatchtypeddata.inl(275): note: see reference to function template instantiation 'boost::intrusive_ptr<IECore::Data> IECore::Detail::DespatchTypedData<Functor,IECore::FloatVectorData,ErrorHandler>::Func<Enabler,void>::operator ()(DataType *,Functor &,ErrorHandler &)' being compiled
+            with
+            [
+                Functor=IECore::DataInterleaveOp::InterleaveFnStage1,
+                ErrorHandler=IECore::Detail::DespatchTypedDataExceptionError,
+                Enabler=IECore::TypeTraits::IsNumericVectorTypedData,
+                DataType=IECore::FloatVectorData
+            ]
+    cortex\include\iecore\despatchtypeddata.inl(277): note: see reference to class template instantiation 'IECore::Detail::DespatchTypedData<Functor,IECore::FloatVectorData,ErrorHandler>::Func<Enabler,void>' being compiled
+            with
+            [
+                Functor=IECore::DataInterleaveOp::InterleaveFnStage1,
+                ErrorHandler=IECore::Detail::DespatchTypedDataExceptionError,
+                Enabler=IECore::TypeTraits::IsNumericVectorTypedData
+            ]
+    cortex\include\iecore\despatchtypeddata.inl(407): note: see reference to function template instantiation 'IECore::DataInterleaveOp::InterleaveFnStage1::ReturnType IECore::despatchTypedData<Functor,Enabler,ErrorHandler>(IECore::Data *,Functor &,ErrorHandler &)' being compiled
+            with
+            [
+                Functor=IECore::DataInterleaveOp::InterleaveFnStage1,
+                Enabler=IECore::TypeTraits::IsNumericVectorTypedData,
+                ErrorHandler=IECore::Detail::DespatchTypedDataExceptionError
+            ]
+    cortex\include\iecore\despatchtypeddata.inl(413): note: see reference to function template instantiation 'IECore::DataInterleaveOp::InterleaveFnStage1::ReturnType IECore::despatchTypedData<Functor,Enabler,IECore::Detail::DespatchTypedDataExceptionError>(IECore::Data *,Functor &)' being compiled
+            with
+            [
+                Functor=IECore::DataInterleaveOp::InterleaveFnStage1,
+                Enabler=IECore::TypeTraits::IsNumericVectorTypedData
+            ]
+    cortex\src\iecore\datainterleaveop.cpp(236): note: see reference to function template instantiation 'IECore::DataInterleaveOp::InterleaveFnStage1::ReturnType IECore::despatchTypedData<IECore::DataInterleaveOp::InterleaveFnStage1,IECore::TypeTraits::IsNumericVectorTypedData>(IECore::Data *,Functor &)' being compiled
+            with
+            [
+                Functor=IECore::DataInterleaveOp::InterleaveFnStage1
+            ]
+---
+ SConstruct | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/SConstruct b/SConstruct
+index 786946ed8..1ea5fb536 100644
+--- a/SConstruct
++++ b/SConstruct
+@@ -1198,6 +1198,7 @@ else:
+ 				"/wd4244",  # suppress warning about possible loss of data in type conversion
+ 				"/wd4305",  # suppress warning about conversion from double to float
+ 				"/wd4506",  # suppress warning about no definition for inline function. Needed for USD::Glf
++				"/wd4127",  # suppress warning "conditional expression is constant"  \todo: Remove this when Cortex moves to c++17 and use `if constexpr` in `datainterleaveop.cpp:182`
+ 				# suppress warning about exported class deriving from non-exported class.
+ 				# Microsoft states (in https://docs.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warning-level-2-c4275?view=msvc-170)
+ 				# that "C4275 can be ignored if you are deriving from a type in the
+-- 
+2.33.1.windows.1
+

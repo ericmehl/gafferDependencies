@@ -1,0 +1,27 @@
+From e17a15c86a70e15a2aca98fbf12f1a2fb36fefb6 Mon Sep 17 00:00:00 2001
+From: Eric Mehl <eric@thinkhypothetical.com>
+Date: Fri, 29 Apr 2022 14:19:24 -0400
+Subject: [PATCH] ScaledDataConversion : Fix warning 4244 ( possible loss of
+ data in conversion )
+
+- The constructor for `half` only takes a `float` value, causing an implicit cast and warning 4244 when casting a `double` to `half`. Since this function is only being called for `unsigned` types, we can safely replace `std::numeric_limits::min` with 0.
+---
+ include/IECore/ScaledDataConversion.inl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/IECore/ScaledDataConversion.inl b/include/IECore/ScaledDataConversion.inl
+index d5832c10a..d7b4ec18e 100644
+--- a/include/IECore/ScaledDataConversion.inl
++++ b/include/IECore/ScaledDataConversion.inl
+@@ -163,7 +163,7 @@ struct ScaledDataConversion<
+ 	T operator()( F f ) const
+ 	{
+ 		BOOST_STATIC_ASSERT( boost::is_unsigned< T >::value );
+-		f = std::max<F>( f, (F)(std::numeric_limits<T>::min() ) );
++		f = std::max<F>( f, (F)( 0.0 ) );
+ 		f = std::min<F>( f, (F)( 1.0 ) );
+ 		float result = static_cast<float>(f) * std::numeric_limits<T>::max();
+ 		return static_cast<T>( round( result ) );
+-- 
+2.33.1.windows.1
+

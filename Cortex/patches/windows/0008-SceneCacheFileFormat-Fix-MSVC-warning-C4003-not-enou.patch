@@ -1,0 +1,57 @@
+From 09361e8552b0f08de39ec41c6e7064f9544b8ebe Mon Sep 17 00:00:00 2001
+From: Eric Mehl <eric@thinkhypothetical.com>
+Date: Fri, 29 Apr 2022 17:46:52 -0400
+Subject: [PATCH] SceneCacheFileFormat : Fix MSVC "warning C4003: not enough
+ arguments for function-like macro invocation
+
+- This came back after upgrading to MSVC 2019 and the latest USD. Despite USD trying to handle suppressing this warning, it seems to be stubborn and continues to be raised without further efforts.
+- Using `ARCH_PRAGMA_*` is a bit cleaner and gracefully degrades to a no-op on non-Windows builds.
+---
+ .../src/IECoreUSD/SceneCacheFileFormat.cpp       | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/contrib/IECoreUSD/src/IECoreUSD/SceneCacheFileFormat.cpp b/contrib/IECoreUSD/src/IECoreUSD/SceneCacheFileFormat.cpp
+index 76e10720f..e811ea444 100644
+--- a/contrib/IECoreUSD/src/IECoreUSD/SceneCacheFileFormat.cpp
++++ b/contrib/IECoreUSD/src/IECoreUSD/SceneCacheFileFormat.cpp
+@@ -49,6 +49,9 @@
+ #include "pxr/base/tf/registryManager.h"
+ #include "pxr/base/tf/staticData.h"
+ 
++ARCH_PRAGMA_PUSH
++ARCH_PRAGMA_MACRO_TOO_FEW_ARGUMENTS
++
+ #include "pxr/pxr.h"
+ 
+ #include "pxr/usd/sdf/layer.h"
+@@ -57,6 +60,8 @@
+ #include "pxr/usd/usd/usdaFileFormat.h"
+ #include "pxr/usd/usdGeom/tokens.h"
+ 
++ARCH_PRAGMA_POP
++
+ #include "boost/assign.hpp"
+ 
+ #include <iostream>
+@@ -73,13 +78,12 @@ using std::string;
+ // to be accessible.
+ PXR_NAMESPACE_OPEN_SCOPE
+ 
+-#ifdef _MSC_VER
+-#pragma warning( disable:4003 )  // Following USD's lead, disable warning about not enough parameters for macro
+-#endif
++ARCH_PRAGMA_PUSH
++ARCH_PRAGMA_MACRO_TOO_FEW_ARGUMENTS
++
+ TF_DEFINE_PUBLIC_TOKENS( UsdSceneCacheFileFormatTokens, USD_SCENE_CACHE_FILE_FORMAT_TOKENS );
+-#ifdef _MSC_VER
+-#pragma warning( default:4003 )
+-#endif
++
++ARCH_PRAGMA_POP
+ 
+ TF_REGISTRY_FUNCTION(TfType)
+ {
+-- 
+2.33.1.windows.1
+
