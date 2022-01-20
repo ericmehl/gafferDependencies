@@ -1,16 +1,30 @@
-3.0.0 alpha 2
--------------
+4.0.0
+-----
 
+- OpenVDB : Updated to version 8.1.0.
+- TBB : Updated to version 2020.2.
+- Qt : Updated to version 5.15.2.
+- PySide : Updated to version 5.15.2.
+- Cortex : Updated to version 10.3.0.0.
+
+3.1.0
+-----
+
+- Python : Fixed `ssl` module for Python 3.
+- USD : Enabled OpenVDB support.
+- Cortex : updated to version 10.2.2.0.
+
+3.0.0
+-----
+
+- OpenShadingLanguage : Updated to version 1.11.14.1.
+- OpenImageIO : Updated to version 2.2.15.1.
+- Cortex : Updated to version 10.2.0.0.
+- USD : Updated to version 21.05.
 - OpenVDB : Updated to version 7.2.2.
-
-3.0.0 alpha 1
--------------
-
 - PyBind11 : Added version 2.6.2.
 - PugiXML : Added version 1.11.
-- OpenImageIO : Updated to version 2.2.11.1.
 - LibTIFF : Updated to version 4.1.0.
-- OpenShadingLanguage : Updated to version 1.11.11.0.
 - LLVM : Updated to version 10.0.1.
 
 2.2.0

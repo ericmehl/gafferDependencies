@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/OpenImageIO/oiio/archive/Release-2.2.11.1.tar.gz"
+		"https://github.com/OpenImageIO/oiio/archive/Release-2.2.15.1.tar.gz"
 
 	],
 
@@ -29,10 +29,14 @@
 			" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
 			" -D CMAKE_PREFIX_PATH={buildDir}"
 			" -D USE_FFMPEG=NO"
+			" -D USE_GIF=0"
+			" -D USE_WEBP=0"
 			" -D USE_PYTHON=YES"
 			" -D USE_EXTERNAL_PUGIXML=YES"
 			" -D OIIO_BUILD_TESTS=NO"
 			" {pythonArguments}"
+			" -D Python_ROOT_DIR={buildDir}"
+			" -D Python_FIND_STRATEGY=LOCATION"
 			# These next two disable `iv`. This fails to
 			# build on Mac due to OpenGL deprecations, and
 			# we've never packaged it anyway.
