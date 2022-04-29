@@ -80,7 +80,7 @@
 
 		"variables" : {
 
-			"cmakeGenerator" : "\"Visual Studio 15 2017 Win64\"",
+			"cmakeGenerator" : "\"Visual Studio 16 2019\"",
 
 		},
 
