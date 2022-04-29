@@ -1,0 +1,53 @@
+From 6e968ed9fefa3b61475270c6c20a05c8f091ce89 Mon Sep 17 00:00:00 2001
+From: Cary Phillips <cary@ilm.com>
+Date: Mon, 14 Jun 2021 19:03:10 -0400
+Subject: [PATCH] Push/pop Windows warning pragma (#168)
+
+Signed-off-by: Cary Phillips <cary@ilm.com>
+---
+ src/Imath/ImathEuler.h | 3 ++-
+ src/Imath/ImathQuat.h  | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/src/Imath/ImathEuler.h b/src/Imath/ImathEuler.h
+index b88c6124..03fa6c19 100644
+--- a/IlmBase/Imath/ImathEuler.h
++++ b/IlmBase/Imath/ImathEuler.h
+@@ -138,6 +138,7 @@ IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
+ 
+ #if (defined _WIN32 || defined _WIN64) && defined _MSC_VER
+ // Disable MS VC++ warnings about conversion from double to float
++#pragma warning(push)
+ #pragma warning(disable:4244)
+ #endif
+ 
+@@ -919,7 +919,7 @@ Euler<T>::makeNear (const Euler<T>& target) IMATH_NOEXCEPT
+ }
+ 
+ #if (defined _WIN32 || defined _WIN64) && defined _MSC_VER
+-#pragma warning(default:4244)
++#pragma warning(pop)
+ #endif
+ 
+ /// @endcond
+diff --git a/IlmBase/Imath/ImathQuat.h b/src/Imath/ImathQuat.h
+index d03a2f7a..51ef93ae 100644
+--- a/IlmBase/Imath/ImathQuat.h
++++ b/IlmBase/Imath/ImathQuat.h
+@@ -65,6 +65,7 @@ IMATH_INTERNAL_NAMESPACE_HEADER_ENTER
+ 
+ #if (defined _WIN32 || defined _WIN64) && defined _MSC_VER
+ // Disable MS VC++ warnings about conversion from double to float
++#pragma warning(push)
+ #pragma warning(disable:4244)
+ #endif
+ 
+@@ -957,7 +957,7 @@ operator* (const Vec3<T>& v, const Quat<T>& q) IMATH_NOEXCEPT
+ }
+ 
+ #if (defined _WIN32 || defined _WIN64) && defined _MSC_VER
+-#pragma warning(default:4244)
++#pragma warning(pop)
+ #endif
+ 
+ IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
