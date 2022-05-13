@@ -1,0 +1,23 @@
+diff --git a/src/cmake/macros.cmake b/src/cmake/macros.cmake
+index 11b32afd37..786d061599 100644
+--- a/src/cmake/macros.cmake
++++ b/src/cmake/macros.cmake
+@@ -167,14 +167,14 @@ macro(cycles_install_libraries target)
+     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+       install(
+         FILES
+-        ${TBB_ROOT_DIR}/bin/tbb_debug${CMAKE_SHARED_LIBRARY_SUFFIX}
+-        ${OPENVDB_ROOT_DIR}/bin/openvdb_d${CMAKE_SHARED_LIBRARY_SUFFIX}
++        ${TBB_ROOT_DIR}/lib/tbb_debug${CMAKE_SHARED_LIBRARY_SUFFIX}
++        ${OPENVDB_ROOT_DIR}/lib/openvdb_d${CMAKE_SHARED_LIBRARY_SUFFIX}
+         DESTINATION ${CMAKE_INSTALL_PREFIX})
+     else()
+       install(
+         FILES
+-        ${TBB_ROOT_DIR}/bin/tbb${CMAKE_SHARED_LIBRARY_SUFFIX}
+-        ${OPENVDB_ROOT_DIR}/bin/openvdb${CMAKE_SHARED_LIBRARY_SUFFIX}
++        ${TBB_ROOT_DIR}/lib/tbb${CMAKE_SHARED_LIBRARY_SUFFIX}
++        ${OPENVDB_ROOT_DIR}/lib/openvdb${CMAKE_SHARED_LIBRARY_SUFFIX}
+         DESTINATION ${CMAKE_INSTALL_PREFIX})
+     endif()
+   endif()
