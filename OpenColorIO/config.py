@@ -131,6 +131,7 @@
 			"if not exist \"{buildDir}\\openColorIO\\luts\" mkdir {buildDir}\\openColorIO\\luts",
 			"copy ..\\OpenColorIO-Configs-1.0_r2\\nuke-default\\config.ocio {buildDir}\\openColorIO",
 			"xcopy /s /e /h /y /i ..\\OpenColorIO-Configs-1.0_r2\\nuke-default\\luts {buildDir}\\openColorIO\\luts",
+			"copy {buildDir}\\bin\\{libraryPrefix}OpenColorIO*{sharedLibraryExtension}* {buildDir}\\lib\\",
 		],
 
 	},
