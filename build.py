@@ -17,7 +17,7 @@ import zipfile
 from urllib.request import urlretrieve
 import stat
 
-__version = "5.1.0"
+__version = "6.1.0"
 
 """
 Config file format
