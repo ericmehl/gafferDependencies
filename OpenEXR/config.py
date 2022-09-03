@@ -53,7 +53,7 @@
 
 	"manifest" : [
 
-		"bin/exrheader",
+		"bin/exrheader.*",
 		"include/OpenEXR",
 		"lib/{libraryPrefix}IlmImf*{sharedLibraryExtension}*",
 		"lib/{libraryPrefix}Iex*{sharedLibraryExtension}*",
