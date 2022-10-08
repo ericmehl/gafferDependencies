@@ -36,7 +36,9 @@
 	"manifest" : [
 
 		"include/opensubdiv",
-		"lib/libosd*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}osd*{sharedLibraryExtension}*",
+
+		"lib/{libraryPrefix}osd*.lib",
 
 	],
 
@@ -52,6 +54,7 @@
 				" -G {cmakeGenerator}"
 				" -D CMAKE_INSTALL_PREFIX={buildDir}"
 				" -D CMAKE_PREFIX_PATH={buildDir}"
+				" -D BUILD_SHARED_LIBS=1"
 				" -D NO_DOC=1"
 				" -D NO_OMP=1"
 				" -D NO_CUDA=1"
