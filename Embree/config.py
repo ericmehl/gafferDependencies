@@ -37,7 +37,9 @@
 
 		"include/embree3",
 
-		"lib/libembree3*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}embree3*{sharedLibraryExtension}*",
+		
+		"lib/{libraryPrefix}embree3*.lib",
 
 	],
 
@@ -66,6 +68,7 @@
 				# " -D CMAKE_INSTALL_BINDIR=bin"
 				" ..",
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install",
+			"move {buildDir}\\bin\\{libraryPrefix}embree3*{sharedLibraryExtension}* {buildDir}\\lib"
 		]
 
 	},
