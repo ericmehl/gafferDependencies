@@ -1,3 +1,12 @@
+6.2.0 (relative to 6.1.0)
+-----
+
+- USD : Added graphical tools such as `usdview`
+- OpenEXR : Added `exrheader` binary
+- OpenSubdiv : Added Windows library
+- Embree : Added Windows libraries and DLLs
+
+
 6.1.0 (relative to 6.0.0)
 -----
 
