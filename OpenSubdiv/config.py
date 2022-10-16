@@ -13,6 +13,7 @@
 	"commands" : [
 
 		"cmake"
+			" -G {cmakeGenerator}"
 			" -D CMAKE_INSTALL_PREFIX={buildDir}"
 			" -D CMAKE_PREFIX_PATH={buildDir}"
 			" -D NO_DOC=1"
@@ -28,16 +29,49 @@
 			" ."
 		,
 
-		"make VERBOSE=1 -j {jobs}",
-		"make install",
+		"cmake --build . --config {cmakeBuildType} --target install -- VERBOSE=1 -j {jobs}",
 
 	],
 
 	"manifest" : [
 
 		"include/opensubdiv",
-		"lib/libosd*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}osd*{sharedLibraryExtension}*",
+
+		"lib/{libraryPrefix}osd*.lib",
 
 	],
+
+	"platform:windows" : {
+
+		"variables" : {
+			"cmakeGenerator" : "\"Visual Studio 16 2019\"",
+		},
+
+		"commands" : [
+
+			"cmake"
+				" -G {cmakeGenerator}"
+				" -D CMAKE_INSTALL_PREFIX={buildDir}"
+				" -D CMAKE_PREFIX_PATH={buildDir}"
+				" -D BUILD_SHARED_LIBS=1"
+				" -D NO_DOC=1"
+				" -D NO_OMP=1"
+				" -D NO_CUDA=1"
+				" -D NO_OPENCL=1"
+				" -D NO_GLEW=1"
+				" -D NO_GLFW=1"
+				" -D NO_DX=1"
+				" -D NO_TESTS=1"
+				" -D NO_TBB=1"
+				" -D OPENEXR_LOCATION={buildDir}/lib"
+				" ."
+			,
+
+			"cmake --build . --config {cmakeBuildType} --target install",
+
+	],
+
+	},
 
 }
