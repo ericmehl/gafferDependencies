@@ -53,6 +53,7 @@
 				" -D CMAKE_INSTALL_PREFIX={buildDir}"
 				" -D CMAKE_PREFIX_PATH={buildDir}"
 				" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
+				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
 				" -D TBB_ROOT={buildDir}"
 				" -D EMBREE_STATIC_LIB=OFF"
 				" -D EMBREE_ISPC_SUPPORT=OFF"
