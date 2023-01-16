@@ -1,3 +1,8 @@
+6.2.1 (relative to 6.2.0)
+-----
+
+- Embree : Link to release runtime libraries instead of debug.
+
 6.2.0 (relative to 6.1.0)
 -----
 
