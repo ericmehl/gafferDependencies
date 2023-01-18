@@ -98,6 +98,12 @@
 			"Python", "OpenImageIO", "OpenEXR", "Boost", "OpenShadingLanguage",
 			"Blosc", "FreeType", "GLEW", "TBB", "OpenVDB", "USD",
 		],
+        
+		"environment" : {
+
+			"PATH" : "{buildDir}\\bin;%PATH%",
+
+		},
 
 		"commands" : [
 
