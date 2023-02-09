@@ -1,13 +1,22 @@
 {
 
+	"downloads" : [ "https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tgz" ],
+
 	"publicVariables" : {
 
+		"pythonVersion" : "3.7",
+		# Python 3 unconditionally puts these infuriating "m" ABI suffixes on
+		# everything. This is intended to allow different types of Python builds
+		# to exist in the same place, but that's not a problem we have. The problem
+		# we _do_ have is that a bunch of our projects get tripped up by these
+		# suffixes. See : https://www.python.org/dev/peps/pep-3149.
+		"pythonABIVersion" : "3.7m",
+		"pythonMajorVersion" : "3",
+		"pythonMinorVersion" : "7",
 		"pythonIncludeDir" : "{buildDir}/include/python{pythonABIVersion}",
 		"pythonLibDir" : "{buildDir}/lib",
 
 	},
-
-	"variants" : [ "2", "3" ],
 
 	"url" : "https://www.python.org",
 
@@ -50,56 +59,22 @@
 
 	},
 
-	"variant:2" : {
+	"symbolicLinks" : [
 
+		( "{buildDir}/bin/python", "python3" ),
+
+	],
+
+	"platform:macos" : {
+
+		# Python 3.7 doesn't compile for M1, so we use 3.8 on Mac until
+		# we upgrade all platforms to a mutually compatible version. We
+		# don't support the Python 2 variant at all on Mac.
 		"downloads" : [
 
-			"https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz",
+			"https://www.python.org/ftp/python/3.8.13/Python-3.8.13.tar.xz",
 
 		],
-
-		"publicVariables" : {
-
-			"pythonVersion" : "2.7",
-			"pythonABIVersion" : "2.7",
-			"pythonMajorVersion" : "2",
-			"pythonMinorVersion" : "7",
-
-		},
-
-	},
-
-	"variant:3" : {
-
-		"downloads" : [
-
-			"https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tgz",
-
-		],
-
-		"publicVariables" : {
-
-			"pythonVersion" : "3.7",
-			# Python 3 unconditionally puts these infuriating "m" ABI suffixes on
-			# everything. This is intended to allow different types of Python builds
-			# to exist in the same place, but that's not a problem we have. The problem
-			# we _do_ have is that a bunch of our projects get tripped up by these
-			# suffixes. See : https://www.python.org/dev/peps/pep-3149.
-			"pythonABIVersion" : "3.7m",
-			"pythonMajorVersion" : "3",
-			"pythonMinorVersion" : "7",
-
-		},
-
-		"symbolicLinks" : [
-
-			( "{buildDir}/bin/python", "python3" ),
-
-		],
-
-	},
-
-	"platform:osx" : {
 
 		"variables" : {
 
@@ -107,7 +82,19 @@
 
 		},
 
+		"environment" : {
+
+			"MACOSX_DEPLOYMENT_TARGET" : "11.0",
+
+		},
+
 		"publicVariables" : {
+
+			# See `downloads`.
+			"pythonVersion" : "3.8",
+			"pythonABIVersion" : "3.8m",
+			"pythonMajorVersion" : "3",
+			"pythonMinorVersion" : "8",
 
 			"pythonIncludeDir" : "{buildDir}/lib/Python.framework/Headers",
 			"pythonLibDir" : "{buildDir}/lib/Python.framework/Versions/{pythonVersion}/lib",

@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/PixarAnimationStudios/USD/archive/refs/tags/v21.05.tar.gz"
+		"https://github.com/PixarAnimationStudios/USD/archive/refs/tags/v23.02.tar.gz"
 
 	],
 
@@ -10,7 +10,7 @@
 
 	"license" : "LICENSE.txt",
 
-	"dependencies" : [ "Boost", "Python", "OpenImageIO", "TBB", "Alembic", "OpenSubdiv", "OpenVDB", "PyOpenGL", "GLEW", "PySide" ],
+	"dependencies" : [ "Boost", "Python", "OpenImageIO", "TBB", "Alembic", "OpenSubdiv", "OpenVDB", "PyOpenGL", "GLEW", "PySide", "Embree" ],
 
 	"environment" : {
 
@@ -35,9 +35,13 @@
 			" -D PXR_ENABLE_OPENVDB_SUPPORT=TRUE"
 			" -D PXR_ENABLE_PTEX_SUPPORT=FALSE"
 			" -D PXR_BUILD_TESTS=FALSE"
+			" -D PXR_BUILD_OPENIMAGEIO_PLUGIN=TRUE"
 			" -D PXR_BUILD_ALEMBIC_PLUGIN=TRUE"
+			" -D PXR_BUILD_EMBREE_PLUGIN=TRUE"
 			" -D PXR_ENABLE_HDF5_SUPPORT=FALSE"
 			" -D PXR_PYTHON_SHEBANG='/usr/bin/env python'"
+			" -D Python3_ROOT_DIR={buildDir}"
+			" -D Python3_FIND_STRATEGY=LOCATION"
 			" -D ALEMBIC_DIR={buildDir}/lib"
 			" -D OPENEXR_LOCATION={buildDir}/lib"
 			# Needed to prevent CMake picking up system python libraries on Mac.

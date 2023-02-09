@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/oneapi-src/oneTBB/archive/refs/tags/v2020.2.tar.gz"
+		"https://github.com/oneapi-src/oneTBB/archive/refs/tags/v2020.3.tar.gz"
 
 	],
 
@@ -13,7 +13,9 @@
 	"commands" : [
 
 		"make -j {jobs} stdver=c++{c++Standard}",
+		"mkdir -p {buildDir}/include",
 		"cp -r include/tbb {buildDir}/include",
+		"mkdir -p {buildDir}/lib",
 		"{installLibsCommand}",
 
 	],
@@ -41,7 +43,7 @@
 
 	},
 
-	"platform:osx" : {
+	"platform:macos" : {
 
 		"environment" : {
 

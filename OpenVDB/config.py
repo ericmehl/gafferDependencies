@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v8.1.0.tar.gz"
+		"https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v9.1.0.tar.gz"
 
 	],
 
@@ -28,11 +28,14 @@
 			# puts the libraries in `lib64`. Coax them back.
 			" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
 			" -D OPENVDB_BUILD_PYTHON_MODULE=ON"
+			" -D OPENVDB_BUILD_NANOVDB=ON"
 			" -D OPENVDB_ENABLE_RPATH=OFF"
 			" -D CONCURRENT_MALLOC=None"
 			" -D PYOPENVDB_INSTALL_DIRECTORY={buildDir}/python"
 			" -D Python_ROOT_DIR={buildDir}"
 			" -D Python_FIND_STRATEGY=LOCATION"
+			" -D Python_FIND_VERSION={pythonVersion}"
+			" -D Python_FIND_VERSION_MAJOR={pythonMajorVersion}"
 			" -D BOOST_ROOT={buildDir}"
 			" -D Boost_NO_SYSTEM_PATHS=ON"
 			" .."
@@ -46,6 +49,7 @@
 
 		"include/openvdb",
 		"include/pyopenvdb.h",
+		"include/nanovdb",
 		"lib/libopenvdb*{sharedLibraryExtension}*",
 		"python/pyopenvdb*",
 

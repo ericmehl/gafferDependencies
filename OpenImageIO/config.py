@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/OpenImageIO/oiio/archive/Release-2.2.15.1.tar.gz"
+		"https://github.com/OpenImageIO/oiio/archive/refs/tags/v2.4.8.0.tar.gz"
 
 	],
 
@@ -10,7 +10,7 @@
 
 	"license" : "LICENSE.md",
 
-	"dependencies" : [ "Boost", "Python", "PyBind11", "OpenEXR", "LibTIFF", "LibPNG", "LibJPEG-Turbo", "OpenColorIO", "LibRaw", "PugiXML" ],
+	"dependencies" : [ "Boost", "Python", "PyBind11", "OpenEXR", "LibTIFF", "LibPNG", "OpenJPEG", "LibJPEG-Turbo", "OpenColorIO", "LibRaw", "PugiXML", "Fmt" ],
 
 	"environment" : {
 
@@ -33,8 +33,10 @@
 			" -D USE_WEBP=0"
 			" -D USE_PYTHON=YES"
 			" -D USE_EXTERNAL_PUGIXML=YES"
+			" -D BUILD_MISSING_FMT=NO"
 			" -D OIIO_BUILD_TESTS=NO"
-			" {pythonArguments}"
+			" -D OIIO_DOWNLOAD_MISSING_TESTDATA=NO"
+			" -D PYTHON_VERSION={pythonMajorVersion}"
 			" -D Python_ROOT_DIR={buildDir}"
 			" -D Python_FIND_STRATEGY=LOCATION"
 			# These next two disable `iv`. This fails to
@@ -46,26 +48,6 @@
 		"cd gafferBuild && make install -j {jobs} VERBOSE=1",
 
 	],
-
-	"variant:Python:2" : {
-
-		"variables" : {
-
-			"pythonArguments" : "-D PYTHON_VERSION=2",
-
-		},
-
-	},
-
-	"variant:Python:3" : {
-
-			"variables" : {
-
-			"pythonArguments" : "-D PYTHON_VERSION=3",
-
-		},
-
-	},
 
 	"manifest" : [
 

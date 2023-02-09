@@ -1,3 +1,55 @@
+6.0.0 (relative to 5.1.0)
+-----
+
+- Cortex : Updated to version 10.4.5.0.
+- Cycles : Updated to version 3.4.
+- Embree : Updated to version 3.13.4.
+- USD :
+	- Updated to version 23.02.
+	- Enabled the OpenImageIO plugin. Among other things, this allows OpenEXR textures to be shown in `usdview`.
+- OpenColorIO : Updated to version 2.1.2.
+- OpenImageIO : Updated to version 2.4.8.0.
+- OpenShadingLanguage : Updated to version 1.12.9.0.
+- OpenSubdiv : Updated to version 3.4.4.
+- Expat : Added version 2.5.0.
+- PyString : Added version 1.1.4.
+- YAML-CPP : Added version 0.7.0.
+- Fmt : Added version 9.1.0.
+- Python : Removed Python 2 variant.
+
+5.1.0 (relative to 5.0.0)
+-----
+
+- Cortex : Updated to 10.4.1.0.
+- Qt : Reintroduced QtUiTools module (missing in 5.0.0).
+
+5.0.0 (relative to 4.0.0)
+-----
+
+- C++ : Updated to c++17.
+- Alembic : Updated to version 1.8.3.
+- Blosc : Updated to 1.21.1.
+- Boost : Updated to version 1.76.0.
+- Cycles : Added version 3.1.1.
+- Cortex : Updated to 10.4.0.0.
+- CMark : Updated to 0.29.0.
+- HDF5 : Updated to 1.12.0.
+- LibFFI : Updated to 3.4.2.
+- LibPNG : Updated to 1.6.37.
+- LLVM : Upated to version 11.1.0.
+- OpenColorIO : Updated to version 2.1.1.
+- OpenImageIO : Updated to version 2.3.11.0.
+- OpenJPEG : Added version 2.4.0.
+- OpenShadingLanguage : Updated to version 1.11.17.0.
+- OpenSSL : Updated to 1.1.1i.
+- OpenVDB : Updated to version 9.1.0, and added `nanovdb`.
+- PySide : Updated to 5.15.4.
+- Python : Updated to 3.8.13 (MacOS only).
+- Qt : Updated to 5.15.4.
+- Subprocess32 : Changed to regular install rather than `.egg`.
+- TBB : Updated to version 2020.3.
+- USD : Updated to version 21.11.
+
 4.0.0
 -----
 
@@ -6,6 +58,7 @@
 - Qt : Updated to version 5.15.2.
 - PySide : Updated to version 5.15.2.
 - Cortex : Updated to version 10.3.0.0.
+- Embree : Added version 3.13.3.
 
 3.1.0
 -----
