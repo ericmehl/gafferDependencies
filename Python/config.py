@@ -119,8 +119,8 @@
 
 		"publicVariables" : {
 
-			"pythonIncludeDir" : "{buildDirFwd}/include",
-			"pythonLibDir" : "{buildDirFwd}/libs",
+			"pythonIncludeDir" : "{buildDir}/include",
+			"pythonLibDir" : "{buildDir}/libs",
 
 		},
 
