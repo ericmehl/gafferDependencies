@@ -1,3 +1,8 @@
+x.x.x
+-----
+
+- Update compiler to MSVC 2022.
+
 9.0.0 alpha 1
 -------------
 
