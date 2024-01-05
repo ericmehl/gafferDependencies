@@ -104,16 +104,6 @@ def __decompress( archive ) :
 				extracted = f.extract( info.filename )
 				os.chmod( extracted, ( info.external_attr >> 16 ) | stat.S_IWUSR )
 			files = f.namelist()
-	elif archive.endswith( ".tar.xz" ) :
-		## \todo When we eventually move to Python 3, we can use
-		# the `tarfile` module for this too.
-		command = "tar -xvf {archive}".format( archive=archive )
-		if sys.platform == "win32":
-			command = "cmake -E tar xvf {archive}".format( archive=archive )
-		sys.stderr.write( command + "\n" )
-		files = subprocess.check_output( command, stderr=subprocess.STDOUT, shell = True, universal_newlines = True )
-		files = [ f for f in files.split( "\n" ) if f ]
-		files = [ f[2:] if f.startswith( "x " ) else f for f in files ]
 	else :
 		with tarfile.open( archive, "r:*" ) as f :
 			f.extractall()
@@ -197,7 +187,7 @@ def __updateDigest( project, config ) :
 	for e in config.get( "requiredEnvironment", [] ) :
 		__appendHash( config["digest"], os.environ.get( e, "" ) )
 
-	for patch in glob.glob( "{}/patches/{}/*.patch".format( project, config["platform"] ) ) + glob.glob( "{}/patches/*.patch".format( project ) ) :
+	for patch in glob.glob( "{}/patches/*.patch".format( project ) ) + glob.glob( "{}/patches/{}/*.patch".format( project, config["platform"] ) ) :
 		with open( patch ) as f :
 			__appendHash( config["digest"], f.read() )
 
@@ -284,9 +274,7 @@ def __buildProject( project, config, buildDir ) :
 		if os.path.exists( archivePath ) :
 			continue
 
-		# downloadCommand = "curl -L {0} > {1}".format( download, archivePath )
-		# sys.stderr.write( downloadCommand + "\n" )
-		# subprocess.check_call( downloadCommand, shell = True )
+		sys.stderr.write( 'Retrieving URL: "{}" to "{}"'.format( download, archivePath ) )
 		urlretrieve( download, archivePath )
 
 	workingDir = project + "/working"
@@ -310,14 +298,13 @@ def __buildProject( project, config, buildDir ) :
 				shutil.rmtree( licenseDest )
 			shutil.copytree( config["license"], licenseDest )
 
-	for patch in glob.glob( "../../patches/{}/*.patch".format( config["platform"] ) ) + glob.glob( "../../patches/*.patch" ) :
+	for patch in glob.glob( "../../patches/*.patch" ) + glob.glob( "../../patches/{}/*.patch".format( config["platform"] ) ) :
 		# subprocess.check_call( "git apply --ignore-space-change --ignore-whitespace --whitespace=nowarn {patch}".format( patch = patch ), shell = True )
 		subprocess.check_call( "patch -p1 < {patch}".format( patch = patch ), shell = True )
 
 	environment = os.environ.copy()
 	for k, v in config.get( "environment", {} ).items() :
 		environment[k] = os.path.expandvars( v )
-	
 	for command in config["commands"] :
 		sys.stderr.write( command + "\n" )
 		subprocess.check_call( command, shell = True, env = environment )
@@ -486,8 +473,7 @@ for key, value in vars( args ).items() :
 		variants[key[8:]] = value[0]
 
 variables = {
-	"buildDir" : os.path.abspath( args.buildDir ),
-	"buildDirFwd" : args.buildDir.replace("\\", "/"),
+	"buildDir" : os.path.abspath( args.buildDir ).replace("\\", "/"),
 	"jobs" : args.jobs,
 	"path" : os.environ["PATH"],
 	"version" : __version,
