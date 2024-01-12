@@ -22,7 +22,7 @@
 
 	"license" : "LICENSE",
 
-	"dependencies" : [ "OpenSSL", "LibFFI" ],
+	"dependencies" : [ "OpenSSL", "LibFFI", "ZLib" ],
 
 	"environment" : {
 
@@ -129,15 +129,12 @@
 			"bin/python{executableExtension}",
 			"bin/{libraryPrefix}python*{sharedLibraryExtension}*",
 
-			"lib/{libraryPrefix}python*.lib",
-			"lib/python{pythonVersion}",
-
 			"libs",
 
 			"DLLs",
 
 			# Gross. But here's the reasoning for now: we can't put the modules into a directory
-			# like `lib` as on Linux because it causes havoc with cmake finding the site-packages
+			# like `lib/` as on Linux because it causes havoc with cmake finding the site-packages
 			# directory for downstream projects that need to install their Python modules.
 			# If we just do `Lib/*` then the packager will sweep up everything in the `lib`
 			# folder at the end of the entire dependencies build, not at the time Python is built.
@@ -457,38 +454,23 @@
 
 			"call PCbuild/build.bat -p x64 --no-tkinter \"/p:PlatformToolset=v143\"",
 
-			# Recreate the typical Python 3 directory structure
-			"if not exist {buildDir}\\DLLs mkdir {buildDir}\\DLLs",
-			"if not exist {buildDir}\\bin mkdir {buildDir}\\bin",
-			"if not exist {buildDir}\\lib mkdir {buildDir}\\lib",
-			"if exist {buildDir}\\libs rmdir /Q /S {buildDir}\\libs",
-			"if not exist {buildDir}\\include mkdir {buildDir}\\include",
-			"if exist {buildDir}\\include\\openssl rmdir /S /Q {buildDir}\\include\\openssl",
-			"mkdir {buildDir}\\include\\openssl",
+			# Copy the directory layout to our build directory
+			"PCbuild\\amd64\\python.exe PC\\layout -s . -b PCbuild\\amd64 -v --precompile --include-pip --include-dev --copy {buildDir}",
 
-			# Initially copy all components to `DLLs` to avoid needing to copy
-			# individual DLL files later
-			"PCbuild\\amd64\\python.exe PC\\layout -s . -b PCbuild\\amd64 -v --precompile --flat-dlls --include-pip --include-dev --copy {buildDir}\\DLLs",
-
-			"xcopy /sehyi {buildDir}\\DLLs\\include {buildDir}\\include",
-			"xcopy /sehyi {buildDir}\\DLLs\\Lib {buildDir}\\lib",
-			"move {buildDir}\\DLLs\\libs {buildDir}",
-
-			"rmdir /Q /S {buildDir}\\DLLs\\include",
-			"rmdir /Q /S {buildDir}\\DLLs\\Lib",
-
-			"move {buildDir}\\DLLs\\python.exe {buildDir}\\bin",
-			"move {buildDir}\\DLLs\\python{pythonMajorVersion}{pythonMinorVersion}.dll {buildDir}\\bin",
+			lambda c : shutil.move( pathlib.Path( c["variables"]["buildDir"] ) / "python.exe", pathlib.Path( c["variables"]["buildDir"] ) / "bin" ),
+			lambda c : shutil.move( pathlib.Path( c["variables"]["buildDir"] ) / ( "python" + c["variables"]["pythonMajorVersion"] + c["variables"]["pythonMinorVersion"] + ".dll" ), pathlib.Path( c["variables"]["buildDir"] ) / "bin" ),
+			lambda c : shutil.move( pathlib.Path( c["variables"]["buildDir"] ) / "vcruntime140.dll", pathlib.Path( c["variables"]["buildDir"] ) / "bin" ),
+            lambda c : shutil.move( pathlib.Path( c["variables"]["buildDir"] ) / "vcruntime140_1.dll", pathlib.Path( c["variables"]["buildDir"] ) / "bin" ),
+            lambda c : shutil.move( pathlib.Path( c["variables"]["buildDir"] ) / "vcruntime140_threads.dll", pathlib.Path( c["variables"]["buildDir"] ) / "bin" ),
 			# pythonw runs a script without an accompanying terminal which means we don't get
 			# stdout, stderr, etc.
-			"del {buildDir}\\DLLs\\pythonw.exe",
-			"del {buildDir}\\DLLs\\LICENSE.txt",  # build.py puts the license in the right place
+			lambda c : ( pathlib.Path( c["variables"]["buildDir"] ) / "pythonw.exe" ).unlink(),
+			lambda c : ( pathlib.Path( c["variables"]["buildDir"] ) / "LICENSE.txt" ).unlink(),  # build.py puts the license in the right place
 
 			# Grab OpenSSL libs from the Python externals (needed by PySide2)
-			"copy externals\\openssl-bin-1.1.1d\\amd64\\libcrypto.lib {buildDir}\\lib",
-			"copy externals\\openssl-bin-1.1.1d\\amd64\\libssl.lib {buildDir}\\lib",
-			"xcopy /sehyi externals\\openssl-bin-1.1.1d\\amd64\\include\\openssl\\* {buildDir}\\include\\openssl",
-
+			lambda c : shutil.move( "externals/openssl-bin-1.1.1d/amd64/libcrypto.lib", pathlib.Path( c["variables"]["buildDir"] ) / "lib" ),
+			lambda c : shutil.move( "externals/openssl-bin-1.1.1d/amd64/libssl.lib", pathlib.Path( c["variables"]["buildDir"] ) / "lib" ),
+			lambda c : shutil.move( "externals/openssl-bin-1.1.1d/amd64/include/openssl", pathlib.Path( c["variables"]["buildDir"] ) / "include" ),
 
 		],
 
