@@ -10,6 +10,7 @@
 - OpenShadingLanguage :
   - Updated to version 1.13.11.0.
   - Enabled Optix support on Linux.
+- Python (Windows) : Added `tbbmalloc_proxy.dll` to Python executable for significantly improved performance.
 
 9.0.0 alpha 3 (relative to 9.0.0 alpha 2)
 -------------
