@@ -79,7 +79,7 @@
 		},
 
 		"commands" : [
-			"xcopy /s /e /h /y /i %ROOT_DIR%\\PySide\\working\\pyside-setup-opensource-src-5.15.14 %ROOT_DIR%\\PySide\\working\\p",	# Shorten overall paths to avoid Windows command character limit
+			"xcopy /s /e /h /y /i %ROOT_DIR%\\PySide\\working\\pyside-setup-opensource-src-5.15.16 %ROOT_DIR%\\PySide\\working\\p",	# Shorten overall paths to avoid Windows command character limit
 			"cd ..\\p && python setup.py install"
 				" --ignore-git"
 				" --qmake={buildDir}\\bin\\qmake.exe"
