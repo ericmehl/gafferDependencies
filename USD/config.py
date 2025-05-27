@@ -69,33 +69,33 @@
 		"include/pxr",
 
 		# lib prefix is accurate for all platforms
-		"{sharedLibraryDir}/{libraryPrefix}trace{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}arch{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}tf{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}js{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}work{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}plug{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}kind{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}gf{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}vt{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}ar{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}sdf{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}pcp{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}usd*{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}ndr{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}sdr{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}hd{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}hdx{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}hdSt{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}hio{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}glf{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}garch{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}hgi{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}hgiInterop{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}hgiGL{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}hf{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}cameraUtil{sharedLibraryExtension}",
-		"{sharedLibraryDir}/{libraryPrefix}pxOsd{sharedLibraryExtension}",
+		"lib/{libraryPrefix}trace{sharedLibraryExtension}",
+		"lib/{libraryPrefix}arch{sharedLibraryExtension}",
+		"lib/{libraryPrefix}tf{sharedLibraryExtension}",
+		"lib/{libraryPrefix}js{sharedLibraryExtension}",
+		"lib/{libraryPrefix}work{sharedLibraryExtension}",
+		"lib/{libraryPrefix}plug{sharedLibraryExtension}",
+		"lib/{libraryPrefix}kind{sharedLibraryExtension}",
+		"lib/{libraryPrefix}gf{sharedLibraryExtension}",
+		"lib/{libraryPrefix}vt{sharedLibraryExtension}",
+		"lib/{libraryPrefix}ar{sharedLibraryExtension}",
+		"lib/{libraryPrefix}sdf{sharedLibraryExtension}",
+		"lib/{libraryPrefix}pcp{sharedLibraryExtension}",
+		"lib/{libraryPrefix}usd*{sharedLibraryExtension}",
+		"lib/{libraryPrefix}ndr{sharedLibraryExtension}",
+		"lib/{libraryPrefix}sdr{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hd{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hdx{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hdSt{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hio{sharedLibraryExtension}",
+		"lib/{libraryPrefix}glf{sharedLibraryExtension}",
+		"lib/{libraryPrefix}garch{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hgi{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hgiInterop{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hgiGL{sharedLibraryExtension}",
+		"lib/{libraryPrefix}hf{sharedLibraryExtension}",
+		"lib/{libraryPrefix}cameraUtil{sharedLibraryExtension}",
+		"lib/{libraryPrefix}pxOsd{sharedLibraryExtension}",
 
 		"lib/{libraryPrefix}trace.lib",
 		"lib/{libraryPrefix}arch.lib",
@@ -125,7 +125,7 @@
 		"lib/{libraryPrefix}cameraUtil.lib",
 		"lib/{libraryPrefix}pxOsd.lib",
 
-		"{sharedLibraryDir}/usd",
+		"lib/usd",
 
 		"python/pxr",
 
@@ -190,14 +190,6 @@
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
 
 		],
-
-		"postMovePaths" : {
-
-			"{buildDir}/lib/python/pxr" : "{buildDir}/python",
-            "{buildDir}/lib/usd*.dll" : "{buildDir}/bin",
-            "{buildDir}/lib/usd" : "{buildDir}/bin"
-
-		}
 
 	},
 
