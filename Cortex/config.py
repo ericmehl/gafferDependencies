@@ -70,7 +70,7 @@
 	"manifest" : [
 
 		"include/IECore*",
-		"{sharedLibraryDir}/{libraryPrefix}IECore*{sharedLibraryExtension}",
+		"lib/{libraryPrefix}IECore*{sharedLibraryExtension}",
 		"lib/{libraryPrefix}IECore*.lib",
 		"python/IECore*",
 		"glsl/IECoreGL",
@@ -147,12 +147,6 @@
 				" OPTIONS="
 				" WARNINGS_AS_ERRORS=1"
 		],
-
-		"postMovePaths" : {
-
-			"{buildDir}/lib/IECore*.dll" : "{buildDir}/bin",
-
-		}
 
 	},
 
