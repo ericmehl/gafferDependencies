@@ -90,7 +90,7 @@
 				" -D CMAKE_PREFIX_PATH={buildDir}"
 				" -D Python_ROOT_DIR={buildDir}"
 				" -D Python_FIND_STRATEGY=LOCATION"
-				" -D pystring_INCLUDE_DIR={buildDir}/include"
+				" -D pystring_INCLUDE_DIR={buildDir}/include/pystring"
 				" -D BUILD_SHARED_LIBS=ON"
 				" -D OCIO_INSTALL_EXT_PACKAGES=NONE"
 				" -D OCIO_BUILD_APPS=OFF"
