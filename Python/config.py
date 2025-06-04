@@ -420,7 +420,7 @@
 			"call PCbuild/build.bat -p x64 --no-tkinter \"/p:PlatformToolset=v143\"",
 
 			# Copy the directory layout to our build directory
-			"PCbuild\\amd64\\python.exe PC\\layout -s . -b PCbuild\\amd64 -v --precompile --include-pip --include-dev --copy {buildDir}",
+			"PCbuild\\amd64\\python.exe PC\\layout -s . -b PCbuild\\amd64 -v --precompile --include-pip --include-dev --include-stable --copy {buildDir}",
 
 			# pythonw runs a script without an accompanying terminal which means we don't get
 			# stdout, stderr, etc.
@@ -433,10 +433,12 @@
 			
 			"{buildDir}/python.exe" : "{buildDir}/bin",
 			"{buildDir}/python{pythonMajorVersion}{pythonMinorVersion}.dll" : "{buildDir}/bin",
+			"{buildDir}/python{pythonMajorVersion}.dll" : "{buildDir}/bin",
 			"{buildDir}/vcruntime*.dll" : "buildDir/bin",
 			"externals/openssl-bin-1.1.1u/amd64/libcrypto.lib" : "{buildDir}/lib",
 			"externals/openssl-bin-1.1.1u/amd64/libssl.lib" : "{buildDir}/lib",
 			"externals/openssl-bin-1.1.u/amd64/include/opensll" : "{buildDir}/include",
+			# "PCBuild/amd64/python{pythonMajorVersion}.dll" : "{buildDir}/bin",
 			
 		}
 
