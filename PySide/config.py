@@ -74,22 +74,19 @@
 		"environment" : {
 
 			"PATH" : "{buildDir}\\bin;{buildDir}\\lib;%PATH%",
+			"LLVM_INSTALL_DIR" : "{buildDir}",
 			"VERSION" : "",	# PySide will pull in VERSION from the environment if it exists and cause a failure because the --ignore-git conflicts with VERSION
 
 		},
 
 		"commands" : [
-			"xcopy /s /e /h /y /i %ROOT_DIR%\\PySide\\working\\pyside-setup-opensource-src-5.15.16 %ROOT_DIR%\\PySide\\working\\p",	# Shorten overall paths to avoid Windows command character limit
+			"xcopy /s /e /h /y /i %ROOT_DIR%\\PySide\\working\\pyside-setup-opensource-src-6.5.5 %ROOT_DIR%\\PySide\\working\\p",	# Shorten overall paths to avoid Windows command character limit
 			"cd ..\\p && python setup.py install"
 				" --ignore-git"
-				" --qmake={buildDir}\\bin\\qmake.exe"
 				" --openssl={buildDir}\\bin"
-				" --cmake=\"C:\\Program Files\\CMake\\bin\\cmake.exe\""
 				" --parallel {jobs}"
-				" --no-examples",
-			# This shouldn't be copied like this, pyside2-uic.exe and uic.exe are not equivalent
-			# lambda c : shutil.copy( pathlib.Path( c["variables"]["buildDir"] ) / "lib" / "site-packages" / "PySide2" / "uic.exe", pathlib.Path( c["variables"]["buildDir"] ) / "lib" / "site-packages" / "PySide2" / "pyside2-uic.exe" )
-
+				" --qtpaths={buildDir}/bin/qtpaths6.exe"
+				" install",
 		],
 
 		"postMovePaths" : {
