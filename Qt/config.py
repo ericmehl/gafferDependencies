@@ -116,11 +116,11 @@
 
 	"platform:windows" : {
 
-		"environment" : {
+		# "environment" : {
 
-			"PATH" : "%ROOT_DIR%\\Qt\\working\\qt-everywhere-src-5.15.16\\qtbase\\lib;{buildDir}\\lib;{buildDir}\\bin;%PATH%",
+		# 	"PATH" : "%ROOT_DIR%\\Qt\\working\\qt-everywhere-src-6.5.5\\qtbase\\lib;{buildDir}\\lib;{buildDir}\\bin;%PATH%",
 
-		},
+		# },
 
 		"commands" : [
 
@@ -128,15 +128,15 @@
 			lambda c : shutil.copy( c["variables"]["buildDir"] + "/lib/libpng16.lib", c["variables"]["buildDir"] + "/lib/libpng.lib" ),
 			lambda c : shutil.copy( c["variables"]["buildDir"] + "/lib/jpeg.lib", c["variables"]["buildDir"] + "/lib/libjpeg.lib" ),
 			# help Qt find the right zlib.dll
-			lambda c : shutil.copy( c["variables"]["buildDir"] + "/bin/zlib.dll", os.environ["ROOT_DIR"] + "/Qt/working/qt-everywhere-src-5.15.16/qtbase/bin/zlib.dll" ),
+			lambda c : shutil.copy( c["variables"]["buildDir"] + "/bin/zlib.dll", os.environ["ROOT_DIR"] + "/Qt/working/qt-everywhere-src-6.5.5/qtbase/bin/zlib.dll" ),
 			"call configure.bat"
 				" -prefix {buildDir}"
-				" -plugindir {buildDir}\\qt\\plugins"
+				" -cmake-generator Ninja"
+				" -plugindir {buildDir}/qt/plugins"
 				" -release"
 				" -opensource"
 				" -confirm-license"
 				" -opengl desktop"
-				" -no-angle"
 				" -no-rpath"
 				" -no-dbus"
 				" -skip qt3d"
@@ -146,7 +146,6 @@
 				" -skip qtdeclarative"
 				" -skip qtgamepad"
 				" -skip qtnetworkauth"
-				" -skip qtpurchasing"
 				" -skip qtremoteobjects"
 				" -skip qtsensors"
 				" -skip qtserialbus"
@@ -154,16 +153,29 @@
 				" -skip qtspeech"
 				" -skip qtwebchannel"
 				" -skip qtwebengine"
+				" -skip qtdoc"
+				" -skip qthttpserver"
+				" -skip qtlocation"
+				" -skip qtlottie"
+				" -skip qtmqtt"
+				" -skip qtopcua"
+				" -skip qtquick3d"
+				" -skip qtquick3dphysics"
+				" -skip qtquickeffectmaker"
+				" -skip qtquicktimeline"
+				" -skip qtvirtualkeyboard"
+				" -skip qtwebsockets"
+				" -skip qtwebview"
 				" -no-libudev"
 				" -no-icu"
 				" -qt-pcre"
 				" -nomake examples"
 				" -nomake tests"
 				" -system-zlib"
-				" -I {buildDir}\\include"
-				" -L {buildDir}\\lib",
-			"jom.exe",
-			"jom.exe install",
+				" -I {buildDir}/include"
+				" -L {buildDir}/lib",
+			"cmake --build . --parallel",
+			"cmake --install ."
 
 		]
 	}
