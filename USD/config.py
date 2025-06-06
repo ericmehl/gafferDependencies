@@ -149,7 +149,7 @@
 		"environment" : {
 
 			"PATH" : "{buildDir}\\bin;%PATH%",
-            "PXR_PLUGINPATH_NAME" : "{buildDir}/bin/usd",
+			"PXR_PLUGINPATH_NAME" : "{buildDir}/bin/usd",
 
 		},
 
@@ -162,7 +162,7 @@
 				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
 				" -D CMAKE_INSTALL_PREFIX={buildDir}"
 				" -D CMAKE_PREFIX_PATH={buildDir}"
-                " -D PXR_INSTALL_LOCATION={buildDir}/bin/usd"
+				" -D PXR_INSTALL_LOCATION={buildDir}/bin/usd"
 				" -D Boost_NO_SYSTEM_PATHS=TRUE"
 				" -D Boost_NO_BOOST_CMAKE=TRUE"
 				" -D PXR_ENABLE_OPENVDB_SUPPORT=TRUE"
@@ -182,14 +182,20 @@
 				" -D PXR_USE_PYTHON_3=TRUE"
 				" -D OIIO_BASE_DIR={buildDir}"
 				" -D PXR_ENABLE_PRECOMPILED_HEADERS=0"
-                " -D PYSIDEUICBINARY={buildDir}/bin/uic.exe"
-                " -D PYSIDEUIC_EXTRA_ARGS=\"-g python\""
+				" -D PYSIDEUICBINARY={buildDir}/bin/uic.exe"
+				" -D PYSIDEUIC_EXTRA_ARGS=\"-g python\""
 				" -D CMAKE_CXX_FLAGS=\"-DBOOST_ALL_NO_LIB -DHAVE_SNPRINTF\""
 				" ..",
 
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
 
 		],
+
+		"postMovePaths" : {
+
+			"{buildDir}/lib/python/pxr" : "{buildDir}/python",
+
+		}
 
 	},
 
