@@ -106,7 +106,7 @@
 			"lib/{libraryPrefix}osl*.lib",
 			"{sharedLibraryDir}/{libraryPrefix}*oslexec*{sharedLibraryExtension}",
 			"lib/{libraryPrefix}*oslexec*.lib",
-			"python/oslquery.pyd",
+			"python/oslquery",
 			"doc/osl*",
 			"shaders",
 
@@ -158,7 +158,7 @@
 
 		"postMovePaths" : {
 
-			"{buildDir}/lib/python{pythonVersion}/site-packages/oslquery.pyd" : "{buildDir}/python",
+			"{buildDir}/lib/python{pythonVersion}/site-packages/oslquery" : "{buildDir}/python",
 
 		}
 
