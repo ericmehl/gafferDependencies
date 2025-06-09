@@ -118,7 +118,7 @@
 
 		# "environment" : {
 
-		# 	"PATH" : "%ROOT_DIR%\\Qt\\working\\qt-everywhere-src-6.5.5\\qtbase\\lib;{buildDir}\\lib;{buildDir}\\bin;%PATH%",
+		# 	"PATH" : "%ROOT_DIR%\\Qt\\working\\qt-everywhere-src-6.5.6\\qtbase\\lib;{buildDir}\\lib;{buildDir}\\bin;%PATH%",
 
 		# },
 
@@ -128,7 +128,7 @@
 			lambda c : shutil.copy( c["variables"]["buildDir"] + "/lib/libpng16.lib", c["variables"]["buildDir"] + "/lib/libpng.lib" ),
 			lambda c : shutil.copy( c["variables"]["buildDir"] + "/lib/jpeg.lib", c["variables"]["buildDir"] + "/lib/libjpeg.lib" ),
 			# help Qt find the right zlib.dll
-			lambda c : shutil.copy( c["variables"]["buildDir"] + "/bin/zlib.dll", os.environ["ROOT_DIR"] + "/Qt/working/qt-everywhere-src-6.5.5/qtbase/bin/zlib.dll" ),
+			lambda c : shutil.copy( c["variables"]["buildDir"] + "/bin/zlib.dll", os.environ["ROOT_DIR"] + "/Qt/working/qt-everywhere-src-6.5.6/qtbase/bin/zlib.dll" ),
 			"call configure.bat"
 				" -prefix {buildDir}"
 				" -cmake-generator Ninja"
