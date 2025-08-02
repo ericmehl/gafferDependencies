@@ -98,7 +98,7 @@ permutations of the build.
 
 def __compilerRoot() :
 
-	compiler = shutil.which( "g++" )
+	compiler = shutil.which( "g++" if os.name != "nt" else "cl" )
 	binDir = os.path.dirname( compiler )
 	return os.path.dirname( binDir )
 
