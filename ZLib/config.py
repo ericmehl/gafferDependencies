@@ -15,11 +15,12 @@
 		"mkdir build",
 		"cd build &&"
 			" cmake"
+			" -G {cmakeGenerator}"
 			" -D CMAKE_INSTALL_PREFIX={buildDir}"
 			" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
 			" -D CMAKE_BUILD_TYPE=Release"
 			" ..",
-		"cd build && make -j {jobs} && make install",
+		"cd build && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
 
 	],
 
@@ -27,7 +28,9 @@
 
 		"include/zlib.h",
 		"include/zconf.h",
-		"lib/libz.*{sharedLibraryExtension}*"
+		"lib/libz.*{sharedLibraryExtension}*",
+		"bin/zlib{sharedLibraryExtension}",  # Windows
+		"lib/zlib.lib",
 
 	],
 

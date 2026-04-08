@@ -511,9 +511,12 @@ variables = {
 	"version" : __version,
 	"platform" : { "darwin": "macos", "win32": "windows" }.get( sys.platform, "linux" ),
 	"sharedLibraryExtension" : { "darwin": ".dylib", "win32": ".dll" }.get( sys.platform, ".so" ),
+	"sharedLibraryPrefix" : { "win32": "" }.get( sys.platform, "lib" ),
 	"c++Standard" : "17",
 	"compilerRoot" : __compilerRoot(),
 	"variants" : "".join( "-{}{}".format( key, variants[key] ) for key in sorted( variants.keys() ) ),
+	"cmakeBuildType" : "RELEASE",
+	"cmakeGenerator" : "Ninja",
 }
 
 configs = __loadConfigs( variables, variants )
