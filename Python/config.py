@@ -16,7 +16,7 @@
 
 	"license" : "LICENSE",
 
-	"dependencies" : [ "LibFFI" ],
+	"dependencies" : [ "LibFFI", "ZLib" ],
 
 	"environment" : {
 
@@ -89,6 +89,45 @@
 			( "{buildDir}/bin/python{pythonVersion}", "../lib/Python.framework/Versions/Current/bin/python{pythonVersion}" ),
 			( "{buildDir}/lib/Python.framework/Versions/Current/lib/libpython{pythonMajorVersion}.dylib", "libpython{pythonMajorVersion}.{pythonMinorVersion}.dylib" ),
 		],
+
+	},
+	
+	"platform:windows" : {
+
+		"publicVariables" : {
+
+			"pythonIncludeDir" : "{buildDir}/include",
+			"pythonLibDir" : "{buildDir}/libs",
+
+		},
+
+		"environment" : {
+
+			"PATH" : "{buildDir}\\bin;%PATH%",
+			"DefaultWindowsSDKVersion" : "10.0.20348.0",
+
+		},
+
+		"commands" : [
+
+			"call PCbuild/build.bat -p x64 --no-tkinter \"/p:PlatformToolset=v143\"",
+
+			# Copy the directory layout to our build directory
+			# "PCbuild\\amd64\\python.exe PC\\layout -s . -b PCbuild\\amd64 -v --precompile --include-pip --include-dev --include-stable --copy {buildDir}",
+
+		],
+
+		"postMovePaths" : {
+
+			"{buildDir}/python.exe" : "{buildDir}/bin",
+			"{buildDir}/python{pythonMajorVersion}{pythonMinorVersion}.dll" : "{buildDir}/bin",
+			"{buildDir}/python{pythonMajorVersion}.dll" : "{buildDir}/bin",
+			"{buildDir}/vcruntime*.dll" : "buildDir/bin",
+			"externals/openssl-bin-1.1.1u/amd64/libcrypto.lib" : "{buildDir}/lib",
+			"externals/openssl-bin-1.1.1u/amd64/libssl.lib" : "{buildDir}/lib",
+			"externals/openssl-bin-1.1.u/amd64/include/opensll" : "{buildDir}/include",
+
+		}
 
 	},
 
